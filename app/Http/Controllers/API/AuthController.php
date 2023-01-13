@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -56,17 +56,17 @@ class AuthController extends Controller
             $response = [
                 'success' => true,
                 'data' => $success,
-                'message' => 'User registered successfully.',
+                'message' => 'You login successfully.',
             ];
 
             return response()->json($response, 200);
         }else{
             $response = [
                 'success' => false,
-                'message' => 'Unauthorized'
+                'message' => 'Credentials not found.'
             ];
 
-            return response()->json($response, 400);
+            return response()->json($response);
         }
     }
 }

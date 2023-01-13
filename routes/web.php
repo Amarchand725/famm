@@ -21,4 +21,5 @@ Route::get('/admin/login', function () {
     return view('backend');
 });
 
-// Route::get('/{pathMatch}', function(){ return view('frontend'); })->where('pathMatch', '.*');
+Route::get('/admin/{pathMatch}', function(){ return view('backend'); })->where('pathMatch', '.*');
+Route::get('/{pathMatch}', function(){ return view('frontend'); })->where('pathMatch', '.*');
