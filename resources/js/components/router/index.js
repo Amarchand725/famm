@@ -2,6 +2,12 @@ import { createRouter, createWebHistory } from "vue-router";
 //admin
 import AdminDashboard from '../admin/home/index.vue'
 import AdminLogin from '../admin/home/auth/login.vue'
+import Slider from '../admin/slider/index.vue'
+import Product from '../admin/products/index.vue'
+import Subscriber from '../admin/subscribers/index.vue'
+import AdminTestimonial from '../admin/testimonials/index.vue'
+import AdminBlog from '../admin/blogs/index.vue'
+import AdminContactedUs from '../admin/contacted_us/index.vue'
 
 //pages
 import Home from '../pages/home/index.vue'
@@ -17,11 +23,51 @@ import notFound from '../notFound.vue'
 const routes = [
     //admin
     {
-        path: '/admin/login',
-        name: 'AdminLogin',
-        component: AdminLogin,
+        path: '/admin/contacted_us',
+        name: 'AdminContactedUs',
+        component: AdminContactedUs,
         meta:{
-            requiresAuth: false
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/admin/blogs',
+        name: 'AdminBlog',
+        component: AdminBlog,
+        meta:{
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/admin/testimonials',
+        name: 'AdminTestimonial',
+        component: AdminTestimonial,
+        meta:{
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/admin/subscribers',
+        name: 'subscriber',
+        component: Subscriber,
+        meta:{
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/admin/products',
+        name: 'product',
+        component: Product,
+        meta:{
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/admin/slider',
+        name: 'slider',
+        component: Slider,
+        meta:{
+            requiresAuth: true
         }
     },
     {
@@ -32,63 +78,51 @@ const routes = [
             requiresAuth: true
         }
     },
+    {
+        path: '/admin/login',
+        name: 'AdminLogin',
+        component: AdminLogin,
+        meta:{
+            requiresAuth: false
+        }
+    },
+
     //pages
     {
         path: '/',
         name: 'Home',
-        component: Home,
-        meta:{
-            requiresAuth: false
-        }
+        component: Home
     },
     {
         path: '/shop',
         name: 'Shop',
-        component: Shop,
-        meta:{
-            requiresAuth: false
-        }
+        component: Shop
     },
     {
         path: '/blogs',
         name: 'Blogs',
-        component: Blogs,
-        meta:{
-            requiresAuth: false
-        }
+        component: Blogs
     },
     {
         path: '/contact',
         name: 'Contact',
-        component: Contact,
-        meta:{
-            requiresAuth: false
-        }
+        component: Contact
     },
     {
         path: '/testimonial',
         name: 'Testimonial',
-        component: Testimonial,
-        meta:{
-            requiresAuth: false
-        }
+        component: Testimonial
     },
     {
         path: '/about',
         name: 'About',
-        component: About,
-        meta:{
-            requiresAuth: false
-        }
+        component: About
     },
     //notFound
     {
         path: '/:pathMatch(.*)*)',
         name: 'notFound',
-        component: notFound,
-        meta:{
-            requiresAuth: false
-        }
+        component: notFound
     },
 ]
 
