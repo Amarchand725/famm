@@ -6,6 +6,7 @@
     const user = ref({
         name:'',
         photo:'',
+        logo:'',
     })
 
     onMounted(async() => {
@@ -21,7 +22,7 @@
         router.push('/admin/user/profile')
     }
     const getPhoto = () => {
-        let photo = '/img/upload/avatar.png'
+        let photo = '/admin/dist/img/user2-160x160.jpg'
         if(user.value.photo){
             if(user.value.photo.indexOf('base64') != -1){
                 photo = user.value.photo
@@ -33,90 +34,134 @@
         return photo
     }
 
+    const getLogo = () => {
+        let logo = '/admin/dist/img/AdminLTELogo.png'
+        if(user.value.logo){
+            if(user.value.logo.indexOf('base64') != -1){
+                logo = user.value.logo
+            }else{
+                logo = '/img/upload/' + user.value.logo
+            }
+        }
+
+        return logo
+    }
+
     const logout = () => {
         localStorage.removeItem('token')
         router.push('/admin/login')
     }
 </script>
 <template>
-    <div class="col-md-3 left_col">
-        <div class="left_col scroll-view">
-            <div class="navbar nav_title" style="border: 0;">
-                <router-link to="/admin/dashboard" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></router-link>
-            </div>
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Brand Logo -->
+        <a href="index3.html" class="brand-link">
+            <img :src="getLogo()" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+            <span class="brand-text font-weight-light">AdminLTE 3</span>
+        </a>
 
-            <div class="clearfix"></div>
-
-            <!-- menu profile quick info -->
-            <div class="profile clearfix">
-            <div class="profile_pic">
-                <img src="/admin/images/img.jpg" alt="..." class="img-circle profile_img">
-            </div>
-            <div class="profile_info">
-                <span>Welcome,</span>
-                <h2>John Doe</h2>
-            </div>
-            </div>
-            <!-- /menu profile quick info -->
-
-            <br />
-
-            <!-- sidebar menu -->
-            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                <div class="menu_section">
-                    <h3>General</h3>
-                    <ul class="nav side-menu">
-                        <li>
-                            <a href="/"><i class="fa fa-globe"></i> Go to Frontend </a>
-                        </li>
-                        <li>
-                            <router-link to="/admin/dashboard"><i class="fa fa-home"></i> Dashboard </router-link>
-                        </li>
-                        <li>
-                            <router-link to="/admin/slider"><i class="fa fa-sliders"></i> Slider </router-link>
-                        </li>
-                        <li>
-                            <router-link to="/admin/products"><i class="fa fa-product-hunt"></i> Products </router-link>
-                        </li>
-                         <li>
-                            <router-link to="/admin/blogs"><i class="fa fa-tasks"></i> Blogs </router-link>
-                        </li>
-                        <li>
-                            <router-link to="/admin/subscribers"><i class="fa fa-users"></i> Subscribers </router-link>
-                        </li>
-                        <li>
-                            <router-link to="/admin/contacted_us"><i class="fa fa-users"></i> Contacted Us </router-link>
-                        </li>
-                        <li>
-                            <router-link to="/admin/testimonials"><i class="fa fa-quote-left"></i> Testimonials </router-link>
-                        </li>
-                        <li>
-                            <router-link to="/admin/about_us"><i class="fa fa-home"></i> About Us </router-link>
-                        </li>
-                        <li>
-                            <router-link to="/admin/setting"><i class="fa fa-home"></i> Setting </router-link>
-                        </li>
-                    </ul>
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Sidebar user panel (optional) -->
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="image">
+                    <img :src="getPhoto()" class="img-circle elevation-2" alt="User Image">
+                </div>
+                <div class="info">
+                    <a href="#" class="d-block">Alexander Pierce</a>
                 </div>
             </div>
-            <!-- /sidebar menu -->
 
-            <!-- /menu footer buttons -->
-            <div class="sidebar-footer hidden-small">
-                <a data-toggle="tooltip" data-placement="top" title="Settings">
-                    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                </a>
-                <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                    <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-                </a>
-                <a data-toggle="tooltip" data-placement="top" title="Lock">
-                    <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-                </a>
-                <a data-toggle="tooltip" data-placement="top" title="Logout" href="#" @click="logout">
-                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-                </a>
-            </div>
-            <!-- /menu footer buttons -->
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <!-- Add icons to the links using the .nav-icon class
+                        with font-awesome or any other icon font library -->
+                    <li class="nav-item menu-open">
+                        <a href="#" class="nav-link active">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-cog"></i>
+                            <p>
+                                Settings
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item active">
+                                <a href="#" class="nav-link active">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Settings</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Permissions</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Roles</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <router-link to="/admin/sliders" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Sliders
+                            </p>
+                        </router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link to="/admin/products" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Products
+                            </p>
+                        </router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link to="/admin/subscribers" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Subscribers
+                            </p>
+                        </router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link to="/admin/testimonials" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Testimonials
+                            </p>
+                        </router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link to="/admin/blogs" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Blogs
+                            </p>
+                        </router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link to="/admin/contacted_us" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Contacted Us
+                            </p>
+                        </router-link>
+                    </li>
+                </ul>
+            </nav>
         </div>
-    </div>
+    </aside>
 </template>

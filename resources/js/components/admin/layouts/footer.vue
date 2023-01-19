@@ -1,8 +1,10 @@
 <template>
-    <footer>
-        <div class="pull-right">
-            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+    <footer class="main-footer">
+        <!-- To the right -->
+        <div class="float-right d-none d-sm-inline">
+        Anything you want
         </div>
-        <div class="clearfix"></div>
+        <!-- Default to the left -->
+        <strong>Copyright &copy; 2022 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
     </footer>
 </template>

@@ -63,7 +63,7 @@ const routes = [
         }
     },
     {
-        path: '/admin/slider',
+        path: '/admin/sliders',
         name: 'slider',
         component: Slider,
         meta:{
