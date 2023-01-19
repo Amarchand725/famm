@@ -40,7 +40,7 @@
                     </div>
                     </div>
                     <div class="img-box">
-                    <img src="web/images/p1.png" alt="">
+                    <img src="public/web/images/p1.png" alt="">
                     </div>
                     <div class="detail-box">
                     <h5>
@@ -65,7 +65,7 @@
                     </div>
                     </div>
                     <div class="img-box">
-                    <img src="web/images/p2.png" alt="">
+                    <img src="public/web/images/p2.png" alt="">
                     </div>
                     <div class="detail-box">
                     <h5>
@@ -90,7 +90,7 @@
                     </div>
                     </div>
                     <div class="img-box">
-                    <img src="web/images/p3.png" alt="">
+                    <img src="public/web/images/p3.png" alt="">
                     </div>
                     <div class="detail-box">
                     <h5>
@@ -115,7 +115,7 @@
                     </div>
                     </div>
                     <div class="img-box">
-                    <img src="web/images/p4.png" alt="">
+                    <img src="public/web/images/p4.png" alt="">
                     </div>
                     <div class="detail-box">
                     <h5>
@@ -140,7 +140,7 @@
                     </div>
                     </div>
                     <div class="img-box">
-                    <img src="web/images/p5.png" alt="">
+                    <img src="public/web/images/p5.png" alt="">
                     </div>
                     <div class="detail-box">
                     <h5>
@@ -165,7 +165,7 @@
                     </div>
                     </div>
                     <div class="img-box">
-                    <img src="web/images/p6.png" alt="">
+                    <img src="public/web/images/p6.png" alt="">
                     </div>
                     <div class="detail-box">
                     <h5>
@@ -190,7 +190,7 @@
                     </div>
                     </div>
                     <div class="img-box">
-                    <img src="web/images/p7.png" alt="">
+                    <img src="public/web/images/p7.png" alt="">
                     </div>
                     <div class="detail-box">
                     <h5>
@@ -215,7 +215,7 @@
                     </div>
                     </div>
                     <div class="img-box">
-                    <img src="web/images/p8.png" alt="">
+                    <img src="public/web/images/p8.png" alt="">
                     </div>
                     <div class="detail-box">
                     <h5>
@@ -240,7 +240,7 @@
                     </div>
                     </div>
                     <div class="img-box">
-                    <img src="web/images/p9.png" alt="">
+                    <img src="public/web/images/p9.png" alt="">
                     </div>
                     <div class="detail-box">
                     <h5>
@@ -265,7 +265,7 @@
                     </div>
                     </div>
                     <div class="img-box">
-                    <img src="web/images/p10.png" alt="">
+                    <img src="public/web/images/p10.png" alt="">
                     </div>
                     <div class="detail-box">
                     <h5>
@@ -290,7 +290,7 @@
                     </div>
                     </div>
                     <div class="img-box">
-                    <img src="web/images/p11.png" alt="">
+                    <img src="public/web/images/p11.png" alt="">
                     </div>
                     <div class="detail-box">
                     <h5>
@@ -315,7 +315,7 @@
                     </div>
                     </div>
                     <div class="img-box">
-                    <img src="web/images/p12.png" alt="">
+                    <img src="public/web/images/p12.png" alt="">
                     </div>
                     <div class="detail-box">
                     <h5>

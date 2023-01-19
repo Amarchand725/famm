@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +18,12 @@ Route::get('/', function () {
     return view('frontend');
 });
 
-Route::get('/admin/login', function () {
+Route::controller(HomeController::class)->group(function(){
+    Route::get('/admin/login', 'login');
+    Route::post('/admin/login', 'login');
+});
+
+Route::get('/admin/dashboard', function () {
     return view('backend');
 });
 

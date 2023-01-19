@@ -22,7 +22,7 @@
         router.push('/admin/user/profile')
     }
     const getPhoto = () => {
-        let photo = '/admin/dist/img/user2-160x160.jpg'
+        let photo = '/public/admin/dist/img/user2-160x160.jpg'
         if(user.value.photo){
             if(user.value.photo.indexOf('base64') != -1){
                 photo = user.value.photo
@@ -35,7 +35,7 @@
     }
 
     const getLogo = () => {
-        let logo = '/admin/dist/img/AdminLTELogo.png'
+        let logo = '/public/admin/dist/img/AdminLTELogo.png'
         if(user.value.logo){
             if(user.value.logo.indexOf('base64') != -1){
                 logo = user.value.logo
@@ -78,10 +78,10 @@
                     <!-- Add icons to the links using the .nav-icon class
                         with font-awesome or any other icon font library -->
                     <li class="nav-item menu-open">
-                        <a href="#" class="nav-link active">
+                        <router-link to="/admin/dashboard" class="nav-link active">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>Dashboard</p>
-                        </a>
+                        </router-link>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
