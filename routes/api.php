@@ -26,5 +26,5 @@ Route::controller(AuthController::class)->group(function(){
 });
 
 Route::controller(AdminController::class)->group(function(){
-    Route::get('/admin/profile', 'profile');
+    Route::get('admin/profile', 'profile');
 });

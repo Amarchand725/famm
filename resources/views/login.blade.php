@@ -21,11 +21,8 @@
                                     <span class="fas fa-envelope"></span>
                                 </div>
                             </div>
-                            <span class="text-danger">{{ $errors->first('email') }}</span>
-                            @if(Session::has('error'))
-                                <span class="text-danger">{{ Session::get('error') }}</span>
-                            @endif
                         </div>
+
                         <div class="input-group mb-3">
                             <input type="password" class="form-control" placeholder="Password" required name="password" id="password">
                             <div class="input-group-append">
@@ -34,6 +31,11 @@
                                 </div>
                             </div>
                         </div>
+                        <span class="text-danger" id="error-email">{{ $errors->first('email') }}</span>
+                        <span class="text-danger" id="error-password">{{ $errors->first('password') }}</span>
+                        @if(Session::has('error'))
+                            <span class="text-danger">{{ Session::get('error') }}</span>
+                        @endif
                         <div class="row">
                             <div class="col-8">
                                 <div class="icheck-primary">
@@ -45,17 +47,17 @@
                             </div>
 
                             <div class="col-4">
-                                <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-                                {{-- <button type="submit" id="sign_in_submit" class="btn btn-primary btn-block">
+                                {{-- <button type="submit" id="sign_in_submit" class="btn btn-primary btn-block">Sign In</button> --}}
+                                <button type="submit" id="sign_in_submit" class="btn btn-primary btn-block">
                                     <!--begin::Indicator-->
                                     <span class="indicator-label">
                                         Sing In
                                     </span>
-                                    <span class="indicator-progress">
+                                    <span class="indicator-progress d-none">
                                         Please wait...
                                         <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
                                     </span>
-                                </button> --}}
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -86,16 +88,16 @@
             var email = $('#email').val();
             var password = $('#password').val();
 
-            $('.indicator-label').addClass('d-none');
-            $('.indicator-progress').addClass('d-inline-block');
+            $('.indicator-label').hide();
+            $('.indicator-progress').show();
 
             $.ajax({
                 type:'POST',
                 url:url,
                 data:{_token: "{{ csrf_token() }}", email:email, password:password},
                 success: function(response) {
-                    $('.indicator-label').removeClass('d-none');
-                    $('.indicator-progress').addClass('d-none');
+                    $('.indicator-label').show();
+                    $('.indicator-progress').hide();
                     if(response.status=='success'){
                         Swal.fire({
                             title: "Login Successfully!",
@@ -129,18 +131,12 @@
                     }
                 },
                 error: function (request, status, error) {
-                    $('.indicator-label').removeClass('d-none');
-                    $('.indicator-progress').addClass('d-none');
-
-                    if(request.responseJSON.errors.email){
-                        $('[name="email"]').next('span').html(request.responseJSON.errors.email);
+                    $('.indicator-label').show();
+                    $('.indicator-progress').hide();
+                    if(request.responseJSON.errors.email || request.responseJSON.errors.password){
+                        $('#error-email').html('Email & Password are required');
                     }else{
-                        $('[name="email"]').next('span').html('');
-                    }
-                    if(request.responseJSON.errors.password){
-                        $('[name="password"]').next('span').html(request.responseJSON.errors.password);
-                    }else{
-                        $('[name="password"]').next('span').html('');
+                        $('#error-email').html('');
                     }
                 }
             });

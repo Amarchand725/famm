@@ -23,6 +23,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <!-- Content Wrapper. Contains page content -->
             @yield('content')
             <!-- /.content-wrapper -->
+
+            <!-- Footer -->
+            @include('layouts.admin.footer')
+            <!-- Footer -->
         </div>
         <!-- ./wrapper -->
 

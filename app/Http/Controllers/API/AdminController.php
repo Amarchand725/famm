@@ -4,12 +4,12 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
+use Auth;
 
 class AdminController extends Controller
 {
-    public function profile()
+    public function profile(Request $request)
     {
-        return Auth::user();
+        \Auth::guard('web')->user();
     }
 }

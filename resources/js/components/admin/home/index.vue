@@ -1,10 +1,10 @@
 <script setup>
     import TopNavigation from '../layouts/topNavigation.vue'
     import Sidebar from '../layouts/sidebar.vue'
-    import Footer from '../layouts/footer.vue'
 </script>
 <template>
     <TopNavigation />
+
     <Sidebar />
 
     <div class="content-wrapper">
@@ -91,6 +91,4 @@
         </div>
         <!-- /.content -->
     </div>
-
-    <Footer />
 </template>

@@ -1,108 +1,97 @@
 <script setup>
     import Sidebar from '../layouts/sidebar.vue'
     import TopNavigation from '../layouts/topNavigation.vue'
-    import Footer from '../layouts/footer.vue'
 </script>
 <template>
-    <div class="nav-md">
-        <div class="container body">
-            <div class="main_container">
-                <!-- Sidebar -->
-                <Sidebar />
-                <!-- Sidebar -->
+    <div class="wrapper">
+        <!-- Navbar -->
+        <TopNavigation />
+        <!-- /.navbar -->
 
-                <!-- top navigation -->
-                <TopNavigation />
-                <!-- /top navigation -->
+        <!-- Main Sidebar Container -->
+        <Sidebar />
+        <!-- Main Sidebar Container -->
 
-                <!-- page content -->
-                <div class="right_col" role="main">
-                    <div class="">
-                        <div class="page-title">
-                            <div class="title_left">
-                                <h3>Testimonials <small>Listing</small> </h3>
-                            </div>
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper" style="min-height: 2080.12px;">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>All Testimonials</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><router-link to="/admin/dashboard">Home</router-link></li>
+                                <li class="breadcrumb-item active">Testimonials</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-                            <div class="title_right">
-                                <div class="col-md-10 col-sm-10   form-group pull-right top_search">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Search for...">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-secondary" type="button">Go!</button>
-                                            <button class="btn btn-info"> <i class="fa fa-plus"></i> Add New Testimonial</button>
-                                        </span>
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">All Records</h3>
+                                    <div class="card-tools">
+                                        <div class="input-group input-group-sm" style="width: 550px;">
+                                            <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                                            <div class="input-group-append">
+                                                <button type="submit" class="btn btn-default">
+                                                    <i class="fas fa-search"></i>
+                                                </button>
+                                            </div>
+                                            <div class="input-group-append ml-2">
+                                                <button type="submit" class="btn btn-info">
+                                                    <i class="fas fa-plus"></i> Add New
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="clearfix"></div>
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="x_panel">
-                                    <div class="x_title">
-                                        <h2>All Testimonials</h2>
-                                        <ul class="nav navbar-right panel_toolbox">
-                                            <li>
-                                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                            </li>
-
-                                            <li>
-                                                <a class="close-link"><i class="fa fa-close"></i></a>
-                                            </li>
-                                        </ul>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                    <div class="x_content">
-                                        <!-- start project list -->
-                                        <table class="table table-striped projects">
-                                            <thead>
-                                                <tr>
-                                                    <th style="width: 1%">#</th>
-                                                    <th style="width: 10%">User Image</th>
-                                                    <th style="width: 20%">name</th>
-                                                    <th style="width: 20%">Comment</th>
-                                                    <th>Status</th>
-                                                    <th style="width: 20%">Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>#</td>
-                                                    <td>
-                                                        <img src="images/user.png" class="avatar" alt="Avatar">
-                                                    </td>
-                                                    <td>
-                                                        <a>Pesamakini Backend UI</a>
-                                                        <br />
-                                                        <small>Created 01.01.2015</small>
-                                                    </td>
-                                                    <td>
-                                                        abcdef
-                                                    </td>
-                                                    <td>
-                                                        <span class="badge badge-success">Active</span>
-                                                    </td>
-                                                    <td>
-                                                        <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
-                                                        <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
-                                                        <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                <div class="card-body table-responsive p-0">
+                                    <table class="table table-hover text-nowrap">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Image</th>
+                                                <th>Title</th>
+                                                <th>Sub Title</th>
+                                                <th>Description</th>
+                                                <th>Created At</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>183</td>
+                                                <td>Image</td>
+                                                <td>Title</td>
+                                                <td>SubTitle</td>
+                                                <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                                                <td>11-7-2014</td>
+                                                <td><span class="tag tag-success">Approved</span></td>
+                                                <td>
+                                                    <button class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
+                                                    <button class="btn btn-primary btn-sm ml-1" data-toggle="tooltip" data-placement="top" title="Show"><i class="fa fa-eye"></i></button>
+                                                    <button class="btn btn-danger btn-sm ml-1" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- footer content -->
-                <Footer />
-                <!-- /footer content -->
-            </div>
+            </section>
         </div>
     </div>
 </template>

@@ -17,10 +17,7 @@
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="index3.html" class="nav-link">Home</a>
-            </li>
-            <li class="nav-item d-none d-sm-inline-block">
-                <a href="#" class="nav-link">Contact</a>
+                <a href="/" class="nav-link" title="Go to Frontend" target="_blank"><i class="fa fa-globe"></i> Frontend</a>
             </li>
         </ul>
 
@@ -47,7 +44,6 @@
                 </form>
                 </div>
             </li>
-
             <!-- Messages Dropdown Menu -->
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
@@ -133,11 +129,13 @@
                 <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
                 </div>
             </li>
+            <!-- Fullscreen -->
             <li class="nav-item">
                 <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                 <i class="fas fa-expand-arrows-alt"></i>
                 </a>
             </li>
+            <!-- User Settings -->
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
                     <i class="far fa-user"></i>

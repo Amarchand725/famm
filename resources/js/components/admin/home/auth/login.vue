@@ -16,6 +16,7 @@
         .then(response =>{
             if(response.data.success){
                 localStorage.setItem('token', response.data.data.token)
+                console.log(response)
                 router.push('/admin/dashboard');
             }else{
                 error.value = response.data.message;
