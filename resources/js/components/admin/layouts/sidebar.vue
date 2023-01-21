@@ -14,9 +14,12 @@
     })
 
     const getUser = async() =>{
-        let response = await axios.get('/api/admin/profile')
-        // user.value = response.data
-        console.log('response', response)
+        let token = localStorage.getItem('token')
+        let data = {
+            token: token
+        }
+        let response = await axios.post('/api/admin/profile', data)
+        user.value = response.data.data
     }
 
     const myProfile = () => {
@@ -28,7 +31,7 @@
             if(user.value.photo.indexOf('base64') != -1){
                 photo = user.value.photo
             }else{
-                photo = '/img/upload/' + user.value.photo
+                photo = '/admin/images/profiles/' + user.value.photo
             }
         }
 
@@ -69,7 +72,7 @@
                     <img :src="getPhoto()" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">Alexander Pierce</a>
+                    <a class="d-block">{{ user.name }}</a>
                 </div>
             </div>
 

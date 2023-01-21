@@ -1,6 +1,13 @@
 <script setup>
     import Sidebar from '../layouts/sidebar.vue'
     import TopNavigation from '../layouts/topNavigation.vue'
+    import { useRouter } from 'vue-router'
+
+    const router = useRouter()
+
+    const create = () => {
+        router.push('/admin/slider/create')
+    }
 </script>
 <template>
     <div class="wrapper">
@@ -48,7 +55,7 @@
                                                 </button>
                                             </div>
                                             <div class="input-group-append ml-2">
-                                                <button type="submit" class="btn btn-info">
+                                                <button type="submit" class="btn btn-info" @click="create()">
                                                     <i class="fas fa-plus"></i> Add New
                                                 </button>
                                             </div>
