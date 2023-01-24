@@ -28,14 +28,13 @@ class SliderController extends Controller
         $model->sub_title = $request->sub_title;
         $model->description = $request->description;
 
-        return $request->image;
         if($request->image){
-            return $strpos = strpos($request->image, ';');
+            $strpos = strpos($request->image, ';');
             $sub = substr($request->image, 0, $strpos);
             $ex = explode('/', $sub)[1];
             $image = time().".".$ex;
             $img = Image::make($request->image)->resize(700, 500);
-            $upload_path = public_path()."/admin/images/sliders";
+            $upload_path = public_path()."/admin/images/sliders/";
             $exist_image = $upload_path.$model->image;
             $img->save($upload_path.$image);
             if(file_exists($exist_image)){
@@ -46,13 +45,5 @@ class SliderController extends Controller
         }
         $model->image = $image;
         $model->save();
-
-        $response = [
-            'success' => true,
-            'data' => $model,
-            'message' => 'You have added slider successfully.',
-        ];
-
-        return response()->json($response, 200);
     }
 }

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('sub_title')->nullable();
             $table->text('description')->nullable();
             $table->string('image');
-            $table->string('deleted_at');
+            $table->string('deleted_at')->nullable();
             $table->timestamps();
         });
     }

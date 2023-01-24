@@ -48,12 +48,11 @@
     const save = async() => {
         await axios.post('/api/admin/slider/create', form.value)
         .then((response) => {
-            console.log('response', response)
-            // router.push('/admin/sliders')
-            // toast.fire({
-            //     icon: 'success',
-            //     title: 'Slider Added Successfully.',
-            // })
+            router.push('/admin/sliders')
+            toast.fire({
+                icon: 'success',
+                title: 'Slider Added Successfully.',
+            })
         })
     }
 </script>
