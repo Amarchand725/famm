@@ -14,6 +14,8 @@
         image: ''
     })
 
+    const errors = ref({})
+
     const getImage = () => {
         let image = '/public/admin/images/sliders/default.jpg'
         if(form.value.image){
@@ -53,6 +55,10 @@
                 icon: 'success',
                 title: 'Slider Added Successfully.',
             })
+        }).catch((error) => {
+            if(error.response.status == 422){
+                errors.value = error.response.data.errors
+            }
         })
     }
 </script>
@@ -96,6 +102,7 @@
                                     <div class="form-group">
                                         <label for="title">Title <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="title" placeholder="Enter title" v-model="form.title">
+                                        <small style="color:red" v-if="errors.title">{{ errors.title }}</small>
                                     </div>
                                     <div class="form-group">
                                         <label for="sub_title">Sub Title</label>

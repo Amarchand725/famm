@@ -4,6 +4,8 @@ import AdminDashboard from '../admin/home/index.vue'
 import AdminLogin from '../admin/home/auth/login.vue'
 import Slider from '../admin/slider/index.vue'
 import CreateSlider from '../admin/slider/create.vue'
+import EditSlider from '../admin/slider/edit.vue'
+import ShowSlider from '../admin/slider/show.vue'
 import Product from '../admin/products/index.vue'
 import Subscriber from '../admin/subscribers/index.vue'
 import AdminTestimonial from '../admin/testimonials/index.vue'
@@ -23,6 +25,24 @@ import notFound from '../notFound.vue'
 
 const routes = [
     //admin
+    {
+        path:'/admin/slider/show/:id',
+        name: 'ShowSlider',
+        component: ShowSlider,
+        meta:{
+            requiresAuth: true
+        },
+        props: true
+    },
+    {
+        path:'/admin/slider/edit/:id',
+        name: 'EditSlider',
+        component: EditSlider,
+        meta:{
+            requiresAuth: true
+        },
+        props: true
+    },
     {
         path: '/admin/slider/create',
         name: 'CreateSlider',

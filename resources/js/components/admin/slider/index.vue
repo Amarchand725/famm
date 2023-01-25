@@ -1,12 +1,62 @@
 <script setup>
     import Sidebar from '../layouts/sidebar.vue'
     import TopNavigation from '../layouts/topNavigation.vue'
+    import { onMounted, ref } from 'vue'
     import { useRouter } from 'vue-router'
 
     const router = useRouter()
 
+    let models = ref([])
+
+    onMounted(async() => {
+        getRecords()
+    })
+
+    const getRecords = async () => {
+        let  response = await axios.get('/api/admin/sliders')
+        models.value = response.data.models
+    }
+
+    const getImage = (img) => {
+        return '/public/admin/images/sliders/'+img
+    }
+
     const create = () => {
         router.push('/admin/slider/create')
+    }
+
+    const onEdit = (id) => {
+        router.push('/admin/slider/edit/'+id)
+    }
+
+    const showRecord = (id) => {
+        router.push('/admin/slider/show/'+id)
+    }
+
+    const deleteRecord = (id) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You can't back",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Cancel',
+            confirmButtonText: 'Yes, Delete it',
+        })
+        .then((result) => {
+            if(result.value){
+                axios.get('/api/admin/slider/destroy/'+id)
+                .then(() => {
+                    Swal.fire(
+                        'Delete',
+                        'Slider delete successfully',
+                        'success',
+                    )
+                    getRecords()
+                })
+            }
+        })
     }
 </script>
 <template>
@@ -70,25 +120,28 @@
                                                 <th>Image</th>
                                                 <th>Title</th>
                                                 <th>Sub Title</th>
-                                                <th>Description</th>
                                                 <th>Created At</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>183</td>
-                                                <td>Image</td>
-                                                <td>Title</td>
-                                                <td>SubTitle</td>
-                                                <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                                                <td>11-7-2014</td>
-                                                <td><span class="tag tag-success">Approved</span></td>
+                                        <tbody v-if="models.length > 0">
+                                            <tr v-for="model in models" :key="model.id">
+                                                <td>{{ model.id }}.</td>
                                                 <td>
-                                                    <button class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
-                                                    <button class="btn btn-primary btn-sm ml-1" data-toggle="tooltip" data-placement="top" title="Show"><i class="fa fa-eye"></i></button>
-                                                    <button class="btn btn-danger btn-sm ml-1" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
+                                                    <img :src="getImage(model.image)" class="project_img-list" style="width:50px">
+                                                </td>
+                                                <td>{{ model.title }}</td>
+                                                <td>{{ model.sub_title }}</td>
+                                                <td>{{ model.created_at }}</td>
+                                                <td>
+                                                    <span class="badge badge-success" v-if="model.status">Activated</span>
+                                                    <span class="badge badge-danger" v-else>Deactivated</span>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-info btn-sm" title="Edit" @click="onEdit(model.id)"><i class="fa fa-edit"></i></button>
+                                                    <button class="btn btn-primary btn-sm ml-1" title="Show" @click="showRecord(model.id)"><i class="fa fa-eye"></i></button>
+                                                    <button class="btn btn-danger btn-sm ml-1" title="Delete" @click="deleteRecord(model.id)"><i class="fa fa-trash"></i></button>
                                                 </td>
                                             </tr>
                                         </tbody>

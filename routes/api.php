@@ -31,5 +31,10 @@ Route::controller(AdminController::class)->group(function(){
 });
 
 Route::controller(SliderController::class)->group(function(){
+    Route::get('/admin/sliders', 'index');
     Route::post('/admin/slider/create', 'store');
+    Route::get('admin/slider/edit/{id}', 'edit');
+    Route::get('admin/slider/show/{id}', 'show');
+    Route::post('admin/slider/update/{id}', 'update');
+    Route::get('admin/slider/destroy/{id}', 'destroy');
 });
