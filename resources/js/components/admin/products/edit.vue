@@ -9,10 +9,13 @@
     const form = ref({
         id:'',
         title:'',
-        sub_title:'',
+        price:'',
+        sale_price:'',
         description:'',
-        image:'',
+        thumbnail:'',
     })
+
+    const errors = ref({})
 
     onMounted(async() => {
         getSingleRecord()
@@ -26,24 +29,24 @@
     })
 
     const getSingleRecord = async() =>{
-        let response = await axios.get(`/api/admin/slider/edit/${props.id}`)
+        let response = await axios.get(`/api/admin/products/edit/${props.id}`)
         form.value = response.data.model
     }
 
-    const getImage = () => {
-        let image = '/public/admin/images/default.png'
-        if(form.value.image){
-            if(form.value.image.indexOf('base64') != -1){
-                image = form.value.image
+    const getThumbnail = () => {
+        let thumbnail = '/public/admin/images/default.png'
+        if(form.value.thumbnail){
+            if(form.value.thumbnail.indexOf('base64') != -1){
+                thumbnail = form.value.thumbnail
             }else{
-                image = '/public/admin/images/sliders/' + form.value.image
+                thumbnail = '/public/admin/images/products/thumbnails/' + form.value.thumbnail
             }
         }
 
-        return image
+        return thumbnail
     }
 
-    const changeImage = (e) => {
+    const changeThumbnail = (e) => {
         let file = e.target.files[0];
         let reader = new FileReader();
         let limit = 1024*1024*2
@@ -56,19 +59,23 @@
             return false
         }
         reader.onloadend =(file) => {
-            form.value.image = reader.result
+            form.value.thumbnail = reader.result
         }
         reader.readAsDataURL(file)
     }
 
     const updateRecord = async () => {
-        await axios.post(`/api/admin/slider/update/${form.value.id}`, form.value)
+        await axios.post(`/api/admin/products/update/${form.value.id}`, form.value)
         .then(response => {
-            router.push('/admin/sliders')
+            router.push('/admin/products')
             toast.fire({
                 icon:'success',
-                title:'Slider updated successfully.'
+                title:'Product updated successfully.'
             })
+        }).catch((error) => {
+            if(error.response.status == 422){
+                errors.value = error.response.data.errors
+            }
         })
     }
 
@@ -88,12 +95,12 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>SLIDER FORM</h1>
+                            <h1>PRODUCT FORM</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item" title="Go to dashboard"><router-link to="/admin/dashboard">Dashboard</router-link></li>
-                                <li class="breadcrumb-item active" title="Go to sliders list"><router-link to="/admin/sliders"> All Sliders </router-link></li>
+                                <li class="breadcrumb-item active" title="Go to products list"><router-link to="/admin/products"> All Products </router-link></li>
                             </ol>
                         </div>
                     </div>
@@ -107,33 +114,53 @@
                         <div class="col-md-12">
                             <div class="card card-primary">
                                 <div class="card-header">
-                                    <h3 class="card-title">EDIT SLIDER</h3>
+                                    <h3 class="card-title">EDIT PRODUCT</h3>
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="title">Title <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="title" placeholder="Enter title" v-model="form.title">
+                                        <small style="color:red" v-if="errors.title">{{ errors.title }}</small>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="sub_title">Sub Title</label>
-                                        <input type="text" class="form-control" id="sub_title" placeholder="Enter Sub title" v-model="form.sub_title">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="price">Price</label>
+                                                <input type="number" class="form-control" id="price" placeholder="Enter Sub title" v-model="form.price">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="sale_price">Sale Price</label>
+                                                <input type="number" class="form-control" id="sale_price" placeholder="Enter Sub title" v-model="form.sale_price">
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="description">Description</label>
                                         <textarea name="description" class="form-control" id="description" placeholder="Enter description" v-model="form.description"></textarea>
                                     </div>
                                     <div class="form-group">
-                                        <label for="image">Image <span class="text-danger">*</span></label>
+                                        <label for="thumbnail">Thumbnail</label>
                                         <div class="input-group">
                                             <div class="custom-file">
-                                                <input type="file" accept="image/*" class="custom-file-input" id="image" @change="changeImage">
-                                                <label class="custom-file-label" for="image">Choose file</label>
+                                                <input type="file" accept="image/*" class="custom-file-input" id="thumbnail" @change="changeThumbnail">
+                                                <label class="custom-file-label" for="thumbnail">Choose Thumbnail Image</label>
                                             </div>
                                         </div>
                                         <div class="project_img-container">
-                                            <img :src="getImage()" class="project_img" style="width:80px; height:60px">
+                                            <img :src="getThumbnail()" class="project_img" style="width:80px; height:60px">
                                         </div>
                                     </div>
+                                    <!-- <div class="form-group">
+                                        <label for="images">Product Images</label>
+                                        <div class="input-group">
+                                            <div class="custom-file">
+                                                <input type="file" accept="image/*" class="custom-file-input" id="images" @change="changeImages">
+                                                <label class="custom-file-label" for="images">Choose Product Images</label>
+                                            </div>
+                                        </div>
+                                    </div> -->
                                 </div>
 
                                 <div class="card-footer">

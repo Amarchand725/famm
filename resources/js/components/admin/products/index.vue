@@ -1,6 +1,63 @@
 <script setup>
     import Sidebar from '../layouts/sidebar.vue'
     import TopNavigation from '../layouts/topNavigation.vue'
+    import { onMounted, ref } from 'vue'
+    import { useRouter } from 'vue-router'
+
+    const router = useRouter()
+
+    let records =ref([])
+
+    onMounted(async() => {
+        getRecords()
+    })
+
+    const getRecords = async () => {
+        let  response = await axios.get('/api/admin/products')
+        records.value = response.data.records
+    }
+
+    const getImage = (img) => {
+        return '/public/admin/images/products/thumbnails/'+img
+    }
+
+    const create = () => {
+        router.push('/admin/products/create')
+    }
+
+    const onEdit = (id) => {
+        router.push('/admin/products/edit/'+id)
+    }
+
+    const showRecord = (id) => {
+        router.push('/admin/products/show/'+id)
+    }
+
+    const deleteRecord = (id) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You can't back",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Cancel',
+            confirmButtonText: 'Yes, Delete it',
+        })
+        .then((result) => {
+            if(result.value){
+                axios.get('/api/admin/products/destroy/'+id)
+                .then(() => {
+                    Swal.fire(
+                        'Delete',
+                        'Product delete successfully',
+                        'success',
+                    )
+                    getRecords()
+                })
+            }
+        })
+    }
 </script>
 <template>
     <div class="wrapper">
@@ -24,7 +81,7 @@
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><router-link to="/admin/dashboard">Home</router-link></li>
-                                <li class="breadcrumb-item active">Products</li>
+                                <li class="breadcrumb-item active"><router-link to="/admin/products">All Products</router-link></li>
                             </ol>
                         </div>
                     </div>
@@ -48,7 +105,7 @@
                                                 </button>
                                             </div>
                                             <div class="input-group-append ml-2">
-                                                <button type="submit" class="btn btn-info">
+                                                <button type="submit" class="btn btn-info" @click="create()">
                                                     <i class="fas fa-plus"></i> Add New
                                                 </button>
                                             </div>
@@ -60,28 +117,33 @@
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Image</th>
+                                                <th>Thumbnail</th>
                                                 <th>Title</th>
-                                                <th>Sub Title</th>
-                                                <th>Description</th>
+                                                <th>Price</th>
+                                                <th>Sale Price</th>
                                                 <th>Created At</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>183</td>
-                                                <td>Image</td>
-                                                <td>Title</td>
-                                                <td>SubTitle</td>
-                                                <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                                                <td>11-7-2014</td>
-                                                <td><span class="tag tag-success">Approved</span></td>
+                                        <tbody v-if="records.length > 0">
+                                            <tr v-for="record in records" :key="record.id">
+                                                <td>{{ record.id }}.</td>
                                                 <td>
-                                                    <button class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
-                                                    <button class="btn btn-primary btn-sm ml-1" data-toggle="tooltip" data-placement="top" title="Show"><i class="fa fa-eye"></i></button>
-                                                    <button class="btn btn-danger btn-sm ml-1" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
+                                                    <img :src="getImage(record.thumbnail)" class="project_img-list" style="width:50px">
+                                                </td>
+                                                <td>{{ record.title }}</td>
+                                                <td>${{ record.price }}</td>
+                                                <td>${{ record.sale_price }}</td>
+                                                <td>{{ record.created_at }}</td>
+                                                <td>
+                                                    <span class="badge badge-success" v-if="record.status">Activated</span>
+                                                    <span class="badge badge-danger" v-else>Deactivated</span>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" @click="onEdit(record.id)"><i class="fa fa-edit"></i></button>
+                                                    <button class="btn btn-primary btn-sm ml-1" data-toggle="tooltip" data-placement="top" title="Show" @click="showRecord(record.id)"><i class="fa fa-eye"></i></button>
+                                                    <button class="btn btn-danger btn-sm ml-1" data-toggle="tooltip" data-placement="top" title="Delete" @click="deleteRecord(record.id)"><i class="fa fa-trash"></i></button>
                                                 </td>
                                             </tr>
                                         </tbody>

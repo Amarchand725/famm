@@ -1,6 +1,51 @@
 <script setup>
     import Sidebar from '../layouts/sidebar.vue'
     import TopNavigation from '../layouts/topNavigation.vue'
+    import { onMounted, ref } from 'vue'
+    import { useRouter } from 'vue-router'
+
+    const router = useRouter()
+
+    let records =ref([])
+
+    onMounted(async() => {
+        getRecords()
+    })
+
+    const getRecords = async () => {
+        let  response = await axios.get('/api/admin/contacted_us')
+        records.value = response.data.records
+    }
+
+    const showRecord = (id) => {
+        router.push('/admin/contacted_us/show/'+id)
+    }
+
+    const deleteRecord = (id) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You can't back",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Cancel',
+            confirmButtonText: 'Yes, Delete it',
+        })
+        .then((result) => {
+            if(result.value){
+                axios.get('/api/admin/contacted_us/destroy/'+id)
+                .then(() => {
+                    Swal.fire(
+                        'Delete',
+                        'Contacted Us delete successfully',
+                        'success',
+                    )
+                    getRecords()
+                })
+            }
+        })
+    }
 </script>
 <template>
     <div class="wrapper">
@@ -55,28 +100,28 @@
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Image</th>
-                                                <th>Title</th>
-                                                <th>Sub Title</th>
-                                                <th>Description</th>
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Subject</th>
                                                 <th>Created At</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>183</td>
-                                                <td>Image</td>
-                                                <td>Title</td>
-                                                <td>SubTitle</td>
-                                                <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                                                <td>11-7-2014</td>
-                                                <td><span class="tag tag-success">Approved</span></td>
+                                        <tbody v-if="records.length > 0">
+                                            <tr v-for="record in records" :key="record.id">
+                                                <td>{{ record.id }}.</td>
+                                                <td>{{ record.name }}</td>
+                                                <td>{{ record.email }}</td>
+                                                <td>{{ record.subject }}</td>
+                                                <td>{{ record.created_at }}</td>
                                                 <td>
-                                                    <button class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
-                                                    <button class="btn btn-primary btn-sm ml-1" data-toggle="tooltip" data-placement="top" title="Show"><i class="fa fa-eye"></i></button>
-                                                    <button class="btn btn-danger btn-sm ml-1" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
+                                                    <span class="badge badge-success" v-if="record.status">Activated</span>
+                                                    <span class="badge badge-danger" v-else>Deactivated</span>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-primary btn-sm ml-1" title="Show" @click="showRecord(record.id)"><i class="fa fa-eye"></i></button>
+                                                    <button class="btn btn-danger btn-sm ml-1" data-toggle="tooltip" data-placement="top" title="Delete" @click="deleteRecord(record.id)"><i class="fa fa-trash"></i></button>
                                                 </td>
                                             </tr>
                                         </tbody>

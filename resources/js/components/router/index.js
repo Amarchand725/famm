@@ -2,15 +2,27 @@ import { createRouter, createWebHistory } from "vue-router";
 //admin
 import AdminDashboard from '../admin/home/index.vue'
 import AdminLogin from '../admin/home/auth/login.vue'
+
 import Slider from '../admin/slider/index.vue'
 import CreateSlider from '../admin/slider/create.vue'
 import EditSlider from '../admin/slider/edit.vue'
 import ShowSlider from '../admin/slider/show.vue'
+
 import Product from '../admin/products/index.vue'
+import CreateProduct from '../admin/products/create.vue'
+import EditProduct from '../admin/products/edit.vue'
+import ShowProduct from '../admin/products/show.vue'
+
 import Subscriber from '../admin/subscribers/index.vue'
 import AdminTestimonial from '../admin/testimonials/index.vue'
+
 import AdminBlog from '../admin/blogs/index.vue'
+import CreateBlog from '../admin/blogs/create.vue'
+import EditBlog from '../admin/blogs/edit.vue'
+import ShowBlog from '../admin/blogs/show.vue'
+
 import AdminContactedUs from '../admin/contacted_us/index.vue'
+import ShowContactedUs from '../admin/contacted_us/show.vue'
 
 //pages
 import Home from '../pages/home/index.vue'
@@ -25,6 +37,99 @@ import notFound from '../notFound.vue'
 
 const routes = [
     //admin
+    {
+        path:'/admin/contacted_us/show/:id',
+        name: 'ShowContactedUs',
+        component: ShowContactedUs,
+        meta:{
+            requiresAuth: true
+        },
+        props: true
+    },
+    {
+        path: '/admin/contacted_us',
+        name: 'AdminContactedUs',
+        component: AdminContactedUs,
+        meta:{
+            requiresAuth: true
+        }
+    },
+    {
+        path:'/admin/blogs/show/:id',
+        name: 'ShowBlog',
+        component: ShowBlog,
+        meta:{
+            requiresAuth: true
+        },
+        props: true
+    },
+    {
+        path:'/admin/blogs/edit/:id',
+        name: 'EditBlog',
+        component: EditBlog,
+        meta:{
+            requiresAuth: true
+        },
+        props: true
+    },
+    {
+        path: '/admin/blogs/create',
+        name: 'CreateBlog',
+        component: CreateBlog,
+        meta:{
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/admin/blogs',
+        name: 'AdminBlog',
+        component: AdminBlog,
+        meta:{
+            requiresAuth: true
+        }
+    },
+    {
+        path:'/admin/products/show/:id',
+        name: 'ShowProduct',
+        component: ShowProduct,
+        meta:{
+            requiresAuth: true
+        },
+        props: true
+    },
+    {
+        path:'/admin/products/edit/:id',
+        name: 'EditProduct',
+        component: EditProduct,
+        meta:{
+            requiresAuth: true
+        },
+        props: true
+    },
+    {
+        path: '/admin/products/create',
+        name: 'CreateProduct',
+        component: CreateProduct,
+        meta:{
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/admin/products',
+        name: 'product',
+        component: Product,
+        meta:{
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/admin/sliders',
+        name: 'slider',
+        component: Slider,
+        meta:{
+            requiresAuth: true
+        }
+    },
     {
         path:'/admin/slider/show/:id',
         name: 'ShowSlider',
@@ -52,22 +157,6 @@ const routes = [
         }
     },
     {
-        path: '/admin/contacted_us',
-        name: 'AdminContactedUs',
-        component: AdminContactedUs,
-        meta:{
-            requiresAuth: true
-        }
-    },
-    {
-        path: '/admin/blogs',
-        name: 'AdminBlog',
-        component: AdminBlog,
-        meta:{
-            requiresAuth: true
-        }
-    },
-    {
         path: '/admin/testimonials',
         name: 'AdminTestimonial',
         component: AdminTestimonial,
@@ -83,22 +172,7 @@ const routes = [
             requiresAuth: true
         }
     },
-    {
-        path: '/admin/products',
-        name: 'product',
-        component: Product,
-        meta:{
-            requiresAuth: true
-        }
-    },
-    {
-        path: '/admin/sliders',
-        name: 'slider',
-        component: Slider,
-        meta:{
-            requiresAuth: true
-        }
-    },
+
     {
         path: '/admin/dashboard',
         name: 'AdminDashboard',

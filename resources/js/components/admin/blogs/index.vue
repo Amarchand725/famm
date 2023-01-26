@@ -1,6 +1,63 @@
 <script setup>
     import Sidebar from '../layouts/sidebar.vue'
     import TopNavigation from '../layouts/topNavigation.vue'
+    import { onMounted, ref } from 'vue'
+    import { useRouter } from 'vue-router'
+
+    const router = useRouter()
+
+    let records =ref([])
+
+    onMounted(async() => {
+        getRecords()
+    })
+
+    const getRecords = async () => {
+        let  response = await axios.get('/api/admin/blogs')
+        records.value = response.data.records
+    }
+
+    const getImage = (img) => {
+        return '/public/admin/images/blogs/'+img
+    }
+
+    const create = () => {
+        router.push('/admin/blogs/create')
+    }
+
+    const onEdit = (id) => {
+        router.push('/admin/blogs/edit/'+id)
+    }
+
+    const showRecord = (id) => {
+        router.push('/admin/blogs/show/'+id)
+    }
+
+    const deleteRecord = (id) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You can't back",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Cancel',
+            confirmButtonText: 'Yes, Delete it',
+        })
+        .then((result) => {
+            if(result.value){
+                axios.get('/api/admin/blogs/destroy/'+id)
+                .then(() => {
+                    Swal.fire(
+                        'Delete',
+                        'Blog delete successfully',
+                        'success',
+                    )
+                    getRecords()
+                })
+            }
+        })
+    }
 </script>
 <template>
     <div class="wrapper">
@@ -48,7 +105,7 @@
                                                 </button>
                                             </div>
                                             <div class="input-group-append ml-2">
-                                                <button type="submit" class="btn btn-info">
+                                                <button type="submit" class="btn btn-info" @click="create()">
                                                     <i class="fas fa-plus"></i> Add New
                                                 </button>
                                             </div>
@@ -60,28 +117,31 @@
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Image</th>
+                                                <th>Post</th>
                                                 <th>Title</th>
-                                                <th>Sub Title</th>
-                                                <th>Description</th>
                                                 <th>Created At</th>
+                                                <th>Created By</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>183</td>
-                                                <td>Image</td>
-                                                <td>Title</td>
-                                                <td>SubTitle</td>
-                                                <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                                                <td>11-7-2014</td>
-                                                <td><span class="tag tag-success">Approved</span></td>
+                                        <tbody v-if="records.length > 0">
+                                            <tr v-for="record in records" :key="record.id">
+                                                <td>{{ record.id }}.</td>
                                                 <td>
-                                                    <button class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
-                                                    <button class="btn btn-primary btn-sm ml-1" data-toggle="tooltip" data-placement="top" title="Show"><i class="fa fa-eye"></i></button>
-                                                    <button class="btn btn-danger btn-sm ml-1" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
+                                                    <img :src="getImage(record.post)" class="project_img-list" style="width:50px">
+                                                </td>
+                                                <td>{{ record.title }}</td>
+                                                <td>{{ record.created_at }}</td>
+                                                <td>{{ record.created_by.name }}</td>
+                                                <td>
+                                                    <span class="badge badge-success" v-if="record.status">Activated</span>
+                                                    <span class="badge badge-danger" v-else>Deactivated</span>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Edit" @click="onEdit(record.id)"><i class="fa fa-edit"></i></button>
+                                                    <button class="btn btn-primary btn-sm ml-1" data-toggle="tooltip" data-placement="top" title="Show" @click="showRecord(record.id)"><i class="fa fa-eye"></i></button>
+                                                    <button class="btn btn-danger btn-sm ml-1" data-toggle="tooltip" data-placement="top" title="Delete" @click="deleteRecord(record.id)"><i class="fa fa-trash"></i></button>
                                                 </td>
                                             </tr>
                                         </tbody>

@@ -3,6 +3,12 @@
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\AdminController;
 use App\Http\Controllers\API\SliderController;
+use App\Http\Controllers\API\ProductController;
+use App\Http\Controllers\API\SubscriberController;
+use App\Http\Controllers\API\TestimonialController;
+use App\Http\Controllers\API\BlogController;
+use App\Http\Controllers\API\ContactedUsController;
+use App\Http\Controllers\API\WebController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +32,13 @@ Route::controller(AuthController::class)->group(function(){
     Route::post('register', 'register');
 });
 
+Route::controller(WebController::class)->group(function(){
+    Route::get('/web/products', 'products');
+    Route::get('/web/testimonials', 'testimonials');
+    Route::get('/web/sliders', 'sliders');
+});
+
+//admin
 Route::controller(AdminController::class)->group(function(){
     Route::post('/admin/profile', 'profile');
 });
@@ -37,4 +50,35 @@ Route::controller(SliderController::class)->group(function(){
     Route::get('admin/slider/show/{id}', 'show');
     Route::post('admin/slider/update/{id}', 'update');
     Route::get('admin/slider/destroy/{id}', 'destroy');
+});
+
+Route::controller(ProductController::class)->group(function(){
+    Route::get('/admin/products', 'index');
+    Route::post('/admin/products/create', 'store');
+    Route::get('admin/products/edit/{id}', 'edit');
+    Route::get('admin/products/show/{id}', 'show');
+    Route::post('admin/products/update/{id}', 'update');
+    Route::get('admin/products/destroy/{id}', 'destroy');
+});
+Route::controller(SubscriberController::class)->group(function(){
+    Route::get('/admin/subscribers', 'index');
+    Route::post('/web/subscribers/create', 'store'); //used for frontend user
+    Route::get('admin/subscribers/destroy/{id}', 'destroy');
+});
+Route::controller(TestimonialController::class)->group(function(){
+    Route::get('/admin/testimonials', 'index');
+    Route::get('admin/testimonials/destroy/{id}', 'destroy');
+});
+Route::controller(BlogController::class)->group(function(){
+    Route::get('/admin/blogs', 'index');
+    Route::post('/admin/blogs/create', 'store');
+    Route::get('admin/blogs/edit/{id}', 'edit');
+    Route::get('admin/blogs/show/{id}', 'show');
+    Route::post('admin/blogs/update/{id}', 'update');
+    Route::get('admin/blogs/destroy/{id}', 'destroy');
+});
+Route::controller(ContactedUsController::class)->group(function(){
+    Route::get('/admin/contacted_us', 'index');
+    Route::get('admin/contacted_us/show/{id}', 'show');
+    Route::get('admin/contacted_us/destroy/{id}', 'destroy');
 });
