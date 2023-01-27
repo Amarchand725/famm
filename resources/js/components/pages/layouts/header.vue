@@ -1,9 +1,48 @@
+<script setup>
+    import { onMounted, ref } from 'vue'
+    import { useRouter } from 'vue-router'
+
+    const router = useRouter()
+
+    const form = ref({
+        logo:'',
+    })
+
+    onMounted(async() => {
+        getSingleRecord()
+    })
+
+    const props = defineProps({
+        id:{
+            type:String,
+            default:""
+        }
+    })
+
+    const getSingleRecord = async() =>{
+        let response = await axios.get(`/api/admin/setting/show/1`)
+        form.value = response.data.model
+    }
+
+    const getLogo = () => {
+        let logo = '/public/admin/images/default.jpg'
+        if(form.value.logo){
+            if(form.value.logo.indexOf('base64') != -1){
+                logo = form.value.logo
+            }else{
+                logo = '/public/admin/images/settings/' + form.value.logo
+            }
+        }
+
+        return logo
+    }
+</script>
 <template>
     <header class="header_section">
         <div class="container">
             <nav class="navbar navbar-expand-lg custom_nav-container ">
                 <router-link class="navbar-brand" to="/">
-                    <img width="250" src="public/web/images/logo.png" alt="#" />
+                    <img style="width:250px; height:50px" :src="getLogo(form.logo)" alt="#" />
                 </router-link>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class=""> </span>
@@ -33,12 +72,12 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">
-                                <i class="fa fa-heart"></i>
+                                <i class="fa fa-heart"></i> <span class="badge badge-info">0</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">
-                                <i class="fa fa-shopping-cart"></i>
+                                <i class="fa fa-shopping-cart"></i> <span class="badge badge-info">0</span>
                             </a>
                         </li>
                         <li class="nav-item">

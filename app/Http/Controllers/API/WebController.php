@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Testimonial;
 use App\Models\Slider;
+use App\Models\Blog;
 
 class WebController extends Controller
 {
@@ -32,6 +33,35 @@ class WebController extends Controller
         ->get();
         return response()->json([
             'records' => $records
+        ], 200);
+    }
+    public function blogs()
+    {
+        $blogs = Blog::query()->with(['createdBy' => function ($q) {
+            $q->select('id', 'name', 'profile');
+        }])
+        ->get();
+        return response()->json([
+            'blogs' => $blogs
+        ], 200);
+    }
+    public function showBlog($slug)
+    {
+        $blog = Blog::query()->with(['createdBy' => function ($q) {
+            $q->select('id', 'name', 'profile');
+        }])
+        ->where('slug', $slug)
+        ->first();
+
+        return response()->json([
+            'blog' => $blog
+        ], 200);
+    }
+    public function showProduct($slug)
+    {
+        $product = Product::where('slug', $slug)->first();
+        return response()->json([
+            'product' => $product
         ], 200);
     }
 }

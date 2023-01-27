@@ -19,7 +19,7 @@
         <!-- Custom styles for this template -->
         <link href="public/web/css/style.css" rel="stylesheet" />
         <!-- responsive style -->
-        <link href="public/web/css/responsive.css" rel="stylesheet" />
+        <link href="/public/web/css/responsive.css" rel="stylesheet" />
 
         @vite('resources/css/app.css')
     </head>
@@ -29,12 +29,12 @@
         @vite('resources/js/app.js')
 
         <!-- jQery -->
-        <script src="public/web/js/jquery-3.4.1.min.js"></script>
+        <script src="/public/web/js/jquery-3.4.1.min.js"></script>
         <!-- popper js -->
-        <script src="public/web/js/popper.min.js"></script>
+        <script src="/public/web/js/popper.min.js"></script>
         <!-- bootstrap js -->
-        <script src="public/web/js/bootstrap.js"></script>
+        <script src="/public/web/js/bootstrap.js"></script>
         <!-- custom js -->
-        <script src="public/web/js/custom.js"></script>
+        <script src="/public/web/js/custom.js"></script>
     </body>
 </html>

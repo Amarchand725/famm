@@ -24,10 +24,18 @@ import ShowBlog from '../admin/blogs/show.vue'
 import AdminContactedUs from '../admin/contacted_us/index.vue'
 import ShowContactedUs from '../admin/contacted_us/show.vue'
 
+import ShowSetting from '../admin/settings/show.vue'
+import EditSetting from '../admin/settings/edit.vue'
+
+import ShowAboutUs from '../admin/about_us/show.vue'
+import EditAboutUs from '../admin/about_us/edit.vue'
+
 //pages
 import Home from '../pages/home/index.vue'
 import Shop from '../pages/home/shop.vue'
+import SingleProduct from '../pages/home/single_product.vue'
 import Blogs from '../pages/home/blogs.vue'
+import SingleBlog from '../pages/home/single_blog.vue'
 import Contact from '../pages/home/contact.vue'
 import About from '../pages/home/about.vue'
 import Testimonial from '../pages/home/testimonial.vue'
@@ -37,6 +45,42 @@ import notFound from '../notFound.vue'
 
 const routes = [
     //admin
+    {
+        path:'/admin/about_us/edit/:id',
+        name: 'EditAboutUs',
+        component: EditAboutUs,
+        meta:{
+            requiresAuth: true
+        },
+        props: true
+    },
+    {
+        path:'/admin/about_us/show/:id',
+        name: 'ShowAboutUs',
+        component: ShowAboutUs,
+        meta:{
+            requiresAuth: true
+        },
+        props: true
+    },
+    {
+        path:'/admin/setting/edit/:id',
+        name: 'EditSetting',
+        component: EditSetting,
+        meta:{
+            requiresAuth: true
+        },
+        props: true
+    },
+    {
+        path:'/admin/setting/show/:id',
+        name: 'ShowSetting',
+        component: ShowSetting,
+        meta:{
+            requiresAuth: true
+        },
+        props: true
+    },
     {
         path:'/admin/contacted_us/show/:id',
         name: 'ShowContactedUs',
@@ -202,9 +246,21 @@ const routes = [
         component: Shop
     },
     {
+        path:'/products/:slug',
+        name: 'SingleProduct',
+        component: SingleProduct,
+        props: true
+    },
+    {
         path: '/blogs',
         name: 'Blogs',
         component: Blogs
+    },
+    {
+        path:'/blogs/:slug',
+        name: 'SingleBlog',
+        component: SingleBlog,
+        props: true
     },
     {
         path: '/contact',

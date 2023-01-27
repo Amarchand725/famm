@@ -8,6 +8,8 @@ use App\Http\Controllers\API\SubscriberController;
 use App\Http\Controllers\API\TestimonialController;
 use App\Http\Controllers\API\BlogController;
 use App\Http\Controllers\API\ContactedUsController;
+use App\Http\Controllers\API\SettingController;
+use App\Http\Controllers\API\AboutUsController;
 use App\Http\Controllers\API\WebController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -36,9 +38,22 @@ Route::controller(WebController::class)->group(function(){
     Route::get('/web/products', 'products');
     Route::get('/web/testimonials', 'testimonials');
     Route::get('/web/sliders', 'sliders');
+    Route::get('/web/blogs', 'blogs');
+    Route::get('/blogs/{slug}', 'showBlog');
+    Route::get('/products/{slug}', 'showProduct');
 });
 
 //admin
+Route::controller(AboutUsController::class)->group(function(){
+    Route::get('admin/about_us/show/{id}', 'show');
+    Route::get('admin/about_us/edit/{id}', 'edit');
+    Route::post('admin/about_us/update/{id}', 'update');
+});
+Route::controller(SettingController::class)->group(function(){
+    Route::get('admin/setting/show/{id}', 'show');
+    Route::get('admin/setting/edit/{id}', 'edit');
+    Route::post('admin/setting/update/{id}', 'update');
+});
 Route::controller(AdminController::class)->group(function(){
     Route::post('/admin/profile', 'profile');
 });

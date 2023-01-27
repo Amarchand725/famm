@@ -7,6 +7,41 @@
     let subscribe = ref({
         email: '',
     })
+    let form = ref({
+        address: '',
+        phone: '',
+        email: '',
+        logo: '',
+    })
+
+    onMounted(async() => {
+        getSingleRecord()
+    })
+
+    const props = defineProps({
+        id:{
+            type:String,
+            default:""
+        }
+    })
+
+    const getSingleRecord = async() =>{
+        let response = await axios.get(`/api/admin/setting/show/1`)
+        form.value = response.data.model
+    }
+
+    const getLogo = () => {
+        let logo = '/public/admin/images/default.jpg'
+        if(form.value.logo){
+            if(form.value.logo.indexOf('base64') != -1){
+                logo = form.value.logo
+            }else{
+                logo = '/public/admin/images/settings/' + form.value.logo
+            }
+        }
+
+        return logo
+    }
 
     const SubscriberSave = async() => {
         await axios.post('/api/web/subscribers/create', subscribe.value)
@@ -32,12 +67,14 @@
                 <div class="col-md-4">
                     <div class="full">
                         <div class="logo_footer">
-                        <a href="#"><img width="210" src="public/web/images/logo.png" alt="#" /></a>
+                            <router-link class="navbar-brand" to="/">
+                                <img style="width:250px; height:50px" :src="getLogo(form.logo)" alt="#" />
+                            </router-link>
                         </div>
                         <div class="information_f">
-                            <p><strong>ADDRESS:</strong> 28 White tower, Street Name New York City, USA</p>
-                            <p><strong>TELEPHONE:</strong> +91 987 654 3210</p>
-                            <p><strong>EMAIL:</strong> yourmain@gmail.com</p>
+                            <p><strong>ADDRESS:</strong> {{ form.address }}</p>
+                            <p><strong>TELEPHONE:</strong> {{ form.phone }}</p>
+                            <p><strong>EMAIL:</strong> {{ form.email }}</p>
                         </div>
                     </div>
                 </div>
@@ -80,8 +117,15 @@
     </footer>
     <!-- footer end -->
     <div class="cpy_">
-        <p class="mx-auto">© 2023 All Rights Reserved By <a href="/">FAMM</a><br>
-            Distributed By <a href="/" target="_blank">FAMM</a>
+        <p class="mx-auto">
+            © {{ new Date().getFullYear() }} All Rights Reserved By
+            <router-link class="navbar-brand" to="/">
+                <img style="width:50px; height:20px" :src="getLogo(form.logo)" alt="#" />
+            </router-link><br>
+            Distributed By
+            <router-link class="navbar-brand" to="/">
+                <img style="width:50px; height:20px" :src="getLogo(form.logo)" alt="#" />
+            </router-link>
         </p>
     </div>
 </template>

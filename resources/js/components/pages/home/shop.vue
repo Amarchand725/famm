@@ -20,6 +20,27 @@
     const getImage = (img) => {
         return '/public/admin/images/products/thumbnails/'+img
     }
+    const showDetail = (slug) => {
+        router.push('/'+slug)
+    }
+
+    let form = ref({
+        slug: '',
+        token: ''
+    })
+
+    const addToWishList = async(slug) => {
+        let token = localStorage.getItem('token')
+        form.value.token = token
+        form.value.slug = slug
+        await axios.post('/api/web/blog/add_to_wishlist', form.value)
+        .then((response) => {
+            toast.fire({
+                icon: 'success',
+                title: 'Added to wishlist Successfully.',
+            })
+        })
+    }
 </script>
 <template>
     <Header />
@@ -50,11 +71,14 @@
                     <div class="box">
                         <div class="option_container">
                             <div class="options">
-                                <a href="" class="option1">
+                                <a style="cursor: pointer;" class="option1">
                                     Add To Cart
                                 </a>
-                                <a href="" class="option2">
-                                    Buy Now
+                                <a style="cursor: pointer;" @click="showDetail(product.slug)" class="option2">
+                                    Show Details
+                                </a>
+                                <a style="cursor: pointer;" @click="addToWishList(product.slug)" class="option3">
+                                    Add to wishlist
                                 </a>
                             </div>
                         </div>
@@ -63,7 +87,11 @@
                         </div>
                         <div class="detail-box">
                             <h5>{{ product.title }}</h5>
-                            <h6>${{ product.price }}</h6>
+                            <h5>
+                                <b v-if="product.sale_price > 0">${{ product.sale_price }}</b>
+                                <small class="ml-3" v-if="product.price > 0" style="text-decoration: line-through;">${{ product.price }}</small>
+                            </h5>
+
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,46 @@
 <script setup>
     import Header from '../layouts/header.vue'
     import SecondFooter from '../layouts/second_footer.vue'
+    import { onMounted, ref } from 'vue'
+    import { useRouter } from 'vue-router'
+
+    const router = useRouter()
+
+    onMounted(async() => {
+        getSingleRecord()
+    })
+
+    const form = ref({
+        id:'',
+        currency:'',
+        currency_symbol:'',
+        fast_delivery:'',
+        free_shipping:'',
+        best_quality:'',
+        banner:'',
+        banner_title:'',
+        banner_content:'',
+        subscriber_content:'',
+    })
+
+    const getSingleRecord = async() =>{
+        let response = await axios.get(`/api/admin/about_us/show/1`)
+        form.value = response.data.model
+        console.log('response', response)
+    }
+
+    const getBanner = () => {
+        let banner = '/public/admin/images/default.jpg'
+        if(form.value.banner){
+            if(form.value.banner.indexOf('base64') != -1){
+                banner = form.value.banner
+            }else{
+                banner = '/public/admin/images/about_us/' + form.value.banner
+            }
+        }
+
+        return banner
+    }
 </script>
 <template>
     <Header />
@@ -119,9 +159,7 @@
                         <h5>
                            Fast Delivery
                         </h5>
-                        <p>
-                           variations of passages of Lorem Ipsum available
-                        </p>
+                        <p>{{ form.fast_delivery }}</p>
                      </div>
                   </div>
                </div>
@@ -234,9 +272,7 @@
                         <h5>
                            Free Shiping
                         </h5>
-                        <p>
-                           variations of passages of Lorem Ipsum available
-                        </p>
+                        <p>{{ form.free_shipping }}</p>
                      </div>
                   </div>
                </div>
@@ -255,9 +291,7 @@
                         <h5>
                            Best Quality
                         </h5>
-                        <p>
-                           variations of passages of Lorem Ipsum available
-                        </p>
+                        <p>{{ form.best_quality }}</p>
                      </div>
                   </div>
                </div>
@@ -270,17 +304,15 @@
          <div class="container">
             <div class="box">
                <div class="arrival_bg_box">
-                  <img src="web/images/arrival-bg.png" alt="">
+                  <img :src="getBanner(form.banner)" alt="">
                </div>
                <div class="row">
                   <div class="col-md-6 ml-auto">
                      <div class="heading_container remove_line_bt">
-                        <h2>
-                           #NewArrivals
-                        </h2>
+                        <h2>{{ form.banner_title }}</h2>
                      </div>
                      <p style="margin-top: 20px;margin-bottom: 30px;">
-                        Vitae fugiat laboriosam officia perferendis provident aliquid voluptatibus dolorem, fugit ullam sit earum id eaque nisi hic? Tenetur commodi, nisi rem vel, ea eaque ab ipsa, autem similique ex unde!
+                        {{ form.banner_content }}
                      </p>
                      <a href="">
                      Shop Now

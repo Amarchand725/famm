@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 26, 2023 at 01:04 AM
+-- Generation Time: Jan 27, 2023 at 01:03 AM
 -- Server version: 5.7.36
 -- PHP Version: 8.0.13
 
@@ -20,6 +20,36 @@ SET time_zone = "+00:00";
 --
 -- Database: `famm`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `about_us`
+--
+
+DROP TABLE IF EXISTS `about_us`;
+CREATE TABLE IF NOT EXISTS `about_us` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `currency` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `currency_symbol` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fast_delivery` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `free_shipping` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `best_quality` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `banner` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `banner_title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `banner_content` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `subscriber_content` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `about_us`
+--
+
+INSERT INTO `about_us` (`id`, `currency`, `currency_symbol`, `fast_delivery`, `free_shipping`, `best_quality`, `banner`, `banner_title`, `banner_content`, `subscriber_content`, `created_at`, `updated_at`) VALUES
+(1, 'USD', '$', 'variations of passages of Lorem Ipsum available', 'variations of passages of Lorem Ipsum available', 'variations of passages of Lorem Ipsum available', '1674757763.png', 'Taryn Barrows', 'Non eum eveniet tempora deleniti velit consectetur.', 'Et eius praesentium eveniet deleniti distinctio voluptatum.', '2023-01-26 13:00:38', '2023-01-26 13:29:24');
 
 -- --------------------------------------------------------
 
@@ -129,7 +159,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `migrations`
@@ -148,7 +178,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (12, '2023_01_25_185126_create_subscribers_table', 5),
 (13, '2023_01_25_191734_create_testimonials_table', 6),
 (16, '2023_01_25_204854_create_blogs_table', 7),
-(17, '2023_01_25_222628_create_contacted_us_table', 8);
+(17, '2023_01_25_222628_create_contacted_us_table', 8),
+(18, '2023_01_26_165615_create_settings_table', 9),
+(19, '2023_01_26_175042_create_about_us_table', 10);
 
 -- --------------------------------------------------------
 
@@ -250,7 +282,7 @@ CREATE TABLE IF NOT EXISTS `products` (
 --
 
 INSERT INTO `products` (`id`, `category_id`, `title`, `slug`, `price`, `sale_price`, `description`, `thumbnail`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, NULL, 'Men\'s Shirt', 'mens-shirt', '50', '45', 'Lorem ipsum', '1674672149.png', 1, NULL, '2023-01-25 12:45:52', '2023-01-25 13:42:29'),
+(1, NULL, 'Men\'s Shirt', 'mens-shirt-1', '50', '45', 'Lorem ipsum', '1674672149.png', 1, NULL, '2023-01-25 12:45:52', '2023-01-25 13:42:29'),
 (2, NULL, 'Men\'s Shirt Black', 'mens-shirt-black', '70', '80', 'lorem ipsm', '1674687183.png', 1, NULL, '2023-01-25 17:53:03', '2023-01-25 17:53:03'),
 (3, NULL, 'Women dress skirt', 'women-dress-skirt', '68', '60', 'lorem ipsm', '1674687219.png', 1, NULL, '2023-01-25 17:53:39', '2023-01-25 17:53:39'),
 (4, NULL, 'Women Dress Red Skirt', 'women-dress-red-skirt', '70', '65', 'lorem ipsm', '1674687287.png', 1, NULL, '2023-01-25 17:54:47', '2023-01-25 17:54:47'),
@@ -258,7 +290,7 @@ INSERT INTO `products` (`id`, `category_id`, `title`, `slug`, `price`, `sale_pri
 (6, NULL, 'Women Dress skirt', 'women-dress-skirt', '58', '55', NULL, '1674687359.png', 1, NULL, '2023-01-25 17:55:59', '2023-01-25 17:55:59'),
 (7, NULL, 'Women Black Skirt', 'women-black-skirt', '80', '78', NULL, '1674687382.png', 1, NULL, '2023-01-25 17:56:23', '2023-01-25 17:56:23'),
 (8, NULL, 'Men Blue Shirt', 'men-blue-shirt', '65', '62', NULL, '1674687409.png', 1, NULL, '2023-01-25 17:56:50', '2023-01-25 17:56:50'),
-(9, NULL, 'Men\'s Shirt', 'mens-shirt', '65', '63', NULL, '1674687440.png', 1, NULL, '2023-01-25 17:57:20', '2023-01-25 17:57:20'),
+(9, NULL, 'Men\'s Shirt', 'mens-shirt-2', '65', '63', 'Lorem ipsm ', '1674687440.png', 1, NULL, '2023-01-25 17:57:20', '2023-01-25 17:57:20'),
 (10, NULL, 'Men\'s Green Shirt', 'mens-green-shirt', '70', '70', 'lorem ipusm', '1674687483.png', 1, NULL, '2023-01-25 17:58:03', '2023-01-25 17:58:03'),
 (11, NULL, 'Men\'s Red Shirt', 'mens-red-shirt', '55', '50', NULL, '1674687504.png', 1, NULL, '2023-01-25 17:58:24', '2023-01-25 17:58:24'),
 (12, NULL, 'Women Pink Skirt', 'women-pink-skirt', '78', '65', NULL, '1674687531.png', 1, NULL, '2023-01-25 17:58:51', '2023-01-25 17:58:51');
@@ -279,6 +311,33 @@ CREATE TABLE IF NOT EXISTS `product_images` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `settings`
+--
+
+DROP TABLE IF EXISTS `settings`;
+CREATE TABLE IF NOT EXISTS `settings` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `about_us` text COLLATE utf8mb4_unicode_ci,
+  `logo` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `settings`
+--
+
+INSERT INTO `settings` (`id`, `name`, `address`, `phone`, `email`, `about_us`, `logo`, `created_at`, `updated_at`) VALUES
+(1, 'Famm', '697 Michale Extension\nStantonside, MI 15600-6019', '1-443-847-1816', 'emmanuelle.kozey@hotmail.com', 'variations of passages of Lorem Ipsum available', '1674754316.png', '2023-01-26 12:03:18', '2023-01-26 13:54:34');
 
 -- --------------------------------------------------------
 

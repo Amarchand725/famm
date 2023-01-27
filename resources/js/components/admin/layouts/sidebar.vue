@@ -96,16 +96,16 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item active">
-                                <a href="#" class="nav-link active">
+                                <router-link to="/admin/setting/show/1" class="nav-link active">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Settings</p>
-                                </a>
+                                </router-link>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <router-link to="/admin/about_us/show/1" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Permissions</p>
-                                </a>
+                                    <p>About Us</p>
+                                </router-link>
                             </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
