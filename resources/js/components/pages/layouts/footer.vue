@@ -44,7 +44,7 @@
     }
 
     const SubscriberSave = async() => {
-        await axios.post('/api/web/subscribers/create', subscribe.value)
+        await axios.post('/api/subscribers/create', subscribe.value)
         .then((response) => {
             toast.fire({
                 icon: 'success',

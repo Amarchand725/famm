@@ -246,7 +246,7 @@ const routes = [
         component: Shop
     },
     {
-        path:'/products/:slug',
+        path:'/shop/products/show/:slug',
         name: 'SingleProduct',
         component: SingleProduct,
         props: true
@@ -257,7 +257,7 @@ const routes = [
         component: Blogs
     },
     {
-        path:'/blogs/:slug',
+        path:'/blogs/show/:slug',
         name: 'SingleBlog',
         component: SingleBlog,
         props: true

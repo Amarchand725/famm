@@ -21,11 +21,11 @@
     })
 
     const getProducts = async () => {
-        let  response = await axios.get('/api/web/products')
+        let  response = await axios.get('/api/products')
         products.value = response.data.products
     }
     const getTestimonials = async () => {
-        let  response = await axios.get('/api/web/testimonials')
+        let  response = await axios.get('/api/testimonials')
         testimonials.value = response.data.testimonials
     }
 
@@ -34,7 +34,7 @@
     }
 
     const SubscriberSave = async() => {
-        await axios.post('/api/web/subscribers/create', subscribe.value)
+        await axios.post('/api/subscribers/create', subscribe.value)
         .then((response) => {
             toast.fire({
                 icon: 'success',

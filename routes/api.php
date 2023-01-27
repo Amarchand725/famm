@@ -35,12 +35,12 @@ Route::controller(AuthController::class)->group(function(){
 });
 
 Route::controller(WebController::class)->group(function(){
-    Route::get('/web/products', 'products');
-    Route::get('/web/testimonials', 'testimonials');
-    Route::get('/web/sliders', 'sliders');
-    Route::get('/web/blogs', 'blogs');
-    Route::get('/blogs/{slug}', 'showBlog');
-    Route::get('/products/{slug}', 'showProduct');
+    Route::get('/products', 'products');
+    Route::get('/testimonials', 'testimonials');
+    Route::get('/sliders', 'sliders');
+    Route::get('/blogs', 'blogs');
+    Route::get('/blogs/show/{slug}', 'showBlog');
+    Route::get('/shop/products/show/{slug}', 'showProduct');
 });
 
 //admin

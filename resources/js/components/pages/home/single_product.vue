@@ -20,8 +20,9 @@
     })
 
     const getSingleRecord = async() =>{
-        let response = await axios.get(`/api/${props.slug}`)
+        let response = await axios.get(`/api/shop/products/show/${props.slug}`)
         product.value = response.data.product
+        console.log('response', response)
     }
 
     const getImage = (img) => {

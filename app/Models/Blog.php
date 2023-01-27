@@ -19,11 +19,17 @@ class Blog extends Model
 
     protected $appends = [
         'formatted_created_at',
+        'rel_name',
     ];
 
     public function getFormattedCreatedAtAttribute()
     {
         // return $this->created_at->format('d, M Y | h:i A');
         return $this->created_at->diffForHumans();
+    }
+
+    public function getFormattedNameAttribute()
+    {
+        return $this->createdBy(['name', 'profile']);
     }
 }

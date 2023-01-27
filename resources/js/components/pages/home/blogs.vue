@@ -14,7 +14,7 @@
     });
 
     const getBlogs = async () => {
-        let response = await axios.get("/api/web/blogs");
+        let response = await axios.get("/api/blogs");
         blogs.value = response.data.blogs;
     };
 
@@ -30,7 +30,7 @@
     };
 
     const showBlog = (slug) => {
-        router.push('/'+slug)
+    router.push('/blogs/show/'+slug)
     }
 
 </script>

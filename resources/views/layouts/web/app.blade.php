@@ -13,13 +13,13 @@
         <link rel="shortcut icon" href="images/favicon.png" type="">
         <title>Famms - Fashion HTML Template</title>
         <!-- bootstrap core css -->
-        <link rel="stylesheet" type="text/css" href="public/web/css/bootstrap.css" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('/public/web/css/bootstrap.css') }}" />
         <!-- font awesome style -->
-        <link href="public/web/css/font-awesome.min.css" rel="stylesheet" />
+        <link href="{{ asset('/public/web/css/font-awesome.min.css') }}" rel="stylesheet" />
         <!-- Custom styles for this template -->
-        <link href="public/web/css/style.css" rel="stylesheet" />
+        <link href="{{ asset('/public/web/css/style.css') }}" rel="stylesheet" />
         <!-- responsive style -->
-        <link href="/public/web/css/responsive.css" rel="stylesheet" />
+        <link href="{{ asset('/public/web/css/responsive.css') }}" rel="stylesheet" />
 
         @vite('resources/css/app.css')
     </head>
@@ -29,12 +29,12 @@
         @vite('resources/js/app.js')
 
         <!-- jQery -->
-        <script src="/public/web/js/jquery-3.4.1.min.js"></script>
+        <script src="{{ asset('/public/web/js/jquery-3.4.1.min.js') }}"></script>
         <!-- popper js -->
-        <script src="/public/web/js/popper.min.js"></script>
+        <script src="{{ asset('/public/web/js/popper.min.js') }}"></script>
         <!-- bootstrap js -->
-        <script src="/public/web/js/bootstrap.js"></script>
+        <script src="{{ asset('/public/web/js/bootstrap.js') }}"></script>
         <!-- custom js -->
-        <script src="/public/web/js/custom.js"></script>
+        <script src="{{ asset('/public/web/js/custom.js') }}"></script>
     </body>
 </html>

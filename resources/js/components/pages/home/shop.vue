@@ -13,7 +13,7 @@
     })
 
     const getProducts = async () => {
-        let  response = await axios.get('/api/web/products')
+        let  response = await axios.get('/api/products')
         products.value = response.data.products
     }
 
@@ -21,7 +21,7 @@
         return '/public/admin/images/products/thumbnails/'+img
     }
     const showDetail = (slug) => {
-        router.push('/'+slug)
+        router.push('/shop/products/show/'+slug)
     }
 
     let form = ref({
@@ -33,7 +33,7 @@
         let token = localStorage.getItem('token')
         form.value.token = token
         form.value.slug = slug
-        await axios.post('/api/web/blog/add_to_wishlist', form.value)
+        await axios.post('/api/blog/add_to_wishlist', form.value)
         .then((response) => {
             toast.fire({
                 icon: 'success',
