@@ -14,19 +14,28 @@
         email: '',
     })
 
+    let wishlist_count = ref()
+
     onMounted(async() => {
         getProducts()
         getTestimonials()
         getSingleRecord()
+        getWishListCount()
     })
 
     const getProducts = async () => {
-        let  response = await axios.get('/api/products')
+        let token = localStorage.getItem('token')
+        let  response = await axios.get(`/api/products/${token}`)
         products.value = response.data.products
     }
     const getTestimonials = async () => {
         let  response = await axios.get('/api/testimonials')
         testimonials.value = response.data.testimonials
+    }
+    const getWishListCount = async () => {
+        let token = localStorage.getItem('token')
+        let  response = await axios.get(`/api/wishlists/count/${token}`)
+        wishlist_count.value = response.data.wishlist_count
     }
 
     const getImage = (img) => {
@@ -65,7 +74,6 @@
     const getSingleRecord = async() =>{
         let response = await axios.get(`/api/admin/about_us/show/1`)
         form.value = response.data.model
-        console.log('response', response)
     }
 
     const getBanner = () => {
@@ -80,11 +88,41 @@
 
         return banner
     }
+    const showDetail = (slug) => {
+        router.push('/shop/products/show/'+slug)
+    }
+    const addToWishList = async(slug) => {
+        let token = localStorage.getItem('token')
+        form.value.token = token
+        form.value.slug = slug
+        await axios.post('/api/wishlists/create', form.value)
+        .then((response) => {
+            getWishListCount()
+            toast.fire({
+                icon: 'success',
+                title: 'Added to wishlist Successfully.',
+            })
+        })
+    }
+    const removeProductFromWishList = async(slug) => {
+        let token = localStorage.getItem('token')
+        form.value.token = token
+        form.value.slug = slug
+        await axios.post('/api/wishlists/remove/product', form.value)
+        .then((response) => {
+            getWishListCount()
+            getProducts()
+            toast.fire({
+                icon: 'success',
+                title: 'Removed from wishlist Successfully.',
+            })
+        })
+    }
 </script>
 <template>
     <div class="hero_area">
         <!-- header section strats -->
-        <Header />
+        <Header :wishlist_count=wishlist_count />
         <!-- end header section -->
         <!-- slider section -->
         <Slider />
@@ -374,8 +412,14 @@
                             <a href="" class="option1">
                                 Add To Cart
                             </a>
-                            <a href="" class="option2">
-                                Buy Now
+                            <a style="cursor: pointer;" @click="showDetail(product.slug)" class="option2">
+                                Show Details
+                            </a>
+                            <a v-if="product.wishlist" style="cursor: pointer;" @click="removeProductFromWishList(product.slug)" class="option1">
+                                Remove wishlist
+                            </a>
+                            <a v-else style="cursor: pointer;" @click="addToWishList(product.slug)" class="option3">
+                                Add to wishlist
                             </a>
                         </div>
                     </div>

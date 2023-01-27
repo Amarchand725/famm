@@ -11,6 +11,7 @@ use App\Http\Controllers\API\ContactedUsController;
 use App\Http\Controllers\API\SettingController;
 use App\Http\Controllers\API\AboutUsController;
 use App\Http\Controllers\API\WebController;
+use App\Http\Controllers\API\WishListController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -35,12 +36,19 @@ Route::controller(AuthController::class)->group(function(){
 });
 
 Route::controller(WebController::class)->group(function(){
-    Route::get('/products', 'products');
+    Route::get('/products/{token}', 'products');
     Route::get('/testimonials', 'testimonials');
     Route::get('/sliders', 'sliders');
     Route::get('/blogs', 'blogs');
     Route::get('/blogs/show/{slug}', 'showBlog');
     Route::get('/shop/products/show/{slug}', 'showProduct');
+});
+
+Route::controller(WishListController::class)->group(function(){
+    Route::get('/wishlists', 'index');
+    Route::post('/wishlists/create', 'store');
+    Route::post('/wishlists/remove/product', 'removeProduct');
+    Route::get('/wishlists/count/{token}', 'UserWishListCount');
 });
 
 //admin

@@ -7,14 +7,22 @@
     const router = useRouter()
 
     let products =ref([])
+    let wishlist_count = ref()
 
     onMounted(async() => {
         getProducts()
+        getWishListCount()
     })
 
     const getProducts = async () => {
-        let  response = await axios.get('/api/products')
+        let token = localStorage.getItem('token')
+        let  response = await axios.get(`/api/products/${token}`)
         products.value = response.data.products
+    }
+    const getWishListCount = async () => {
+        let token = localStorage.getItem('token')
+        let  response = await axios.get(`/api/wishlists/count/${token}`)
+        wishlist_count.value = response.data.wishlist_count
     }
 
     const getImage = (img) => {
@@ -33,17 +41,34 @@
         let token = localStorage.getItem('token')
         form.value.token = token
         form.value.slug = slug
-        await axios.post('/api/blog/add_to_wishlist', form.value)
+        await axios.post('/api/wishlists/create', form.value)
         .then((response) => {
+            getWishListCount()
+            getProducts()
             toast.fire({
                 icon: 'success',
                 title: 'Added to wishlist Successfully.',
             })
         })
     }
+
+    const removeProductFromWishList = async(slug) => {
+        let token = localStorage.getItem('token')
+        form.value.token = token
+        form.value.slug = slug
+        await axios.post('/api/wishlists/remove/product', form.value)
+        .then((response) => {
+            getWishListCount()
+            getProducts()
+            toast.fire({
+                icon: 'success',
+                title: 'Removed from wishlist Successfully.',
+            })
+        })
+    }
 </script>
 <template>
-    <Header />
+    <Header :wishlist_count=wishlist_count />
 
     <!-- inner page section -->
     <section class="inner_page_head">
@@ -71,13 +96,16 @@
                     <div class="box">
                         <div class="option_container">
                             <div class="options">
-                                <a style="cursor: pointer;" class="option1">
+                                <a @click="addToCart(product.slug)" style="cursor: pointer;" class="option1">
                                     Add To Cart
                                 </a>
                                 <a style="cursor: pointer;" @click="showDetail(product.slug)" class="option2">
                                     Show Details
                                 </a>
-                                <a style="cursor: pointer;" @click="addToWishList(product.slug)" class="option3">
+                                <a v-if="product.wishlist" style="cursor: pointer;" @click="removeProductFromWishList(product.slug)" class="option1">
+                                    Remove wishlist
+                                </a>
+                                <a v-else style="cursor: pointer;" @click="addToWishList(product.slug)" class="option3">
                                     Add to wishlist
                                 </a>
                             </div>

@@ -11,4 +11,9 @@ class Product extends Model
     use HasFactory, SoftDeletes;
 
     protected $guarded = [];
+
+    public function hasToWishlist()
+    {
+        return $this->belongsTo(WishList::class);
+    }
 }

@@ -4,6 +4,11 @@
 
     const router = useRouter()
 
+    let token = localStorage.getItem('token')
+    if(token == ""){
+        token = '1'
+    }
+
     const form = ref({
         logo:'',
     })
@@ -16,6 +21,10 @@
         id:{
             type:String,
             default:""
+        },
+        wishlist_count:{
+            type:Number,
+            default:0
         }
     })
 
@@ -72,7 +81,8 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">
-                                <i class="fa fa-heart"></i> <span class="badge badge-info">0</span>
+                                <i class="fa fa-heart"></i>
+                                <span class="badge badge-info">{{ wishlist_count }}</span>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -81,9 +91,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fa fa-user"></i> Login
-                            </a>
+                            <router-link to="/login" class="nav-link" v-if="token==1">
+                                <i class="fa fa-user"></i> Login {{ token }}
+                            </router-link>
+                            <router-link to="/user/dashboard" class="nav-link" v-else>
+                                <i class="fa fa-home"></i> Dashboard
+                            </router-link>
                         </li>
                     </ul>
                 </div>

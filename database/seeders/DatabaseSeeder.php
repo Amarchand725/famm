@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
         // \App\Models\Blog::factory(10)->create();
         // \App\Models\ContactedUs::factory(10)->create();
         // \App\Models\Setting::factory(1)->create();
-        \App\Models\AboutUs::factory(1)->create();
+        // \App\Models\AboutUs::factory(1)->create();
+        \App\Models\WishList::factory(10)->create();
 
         // \App\Models\User::factory()->create([
         // 'name' => 'Admin',
