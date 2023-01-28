@@ -25,6 +25,10 @@
         wishlist_count:{
             type:Number,
             default:0
+        },
+        cart_count:{
+            type:Number,
+            default:0
         }
     })
 
@@ -44,6 +48,10 @@
         }
 
         return logo
+    }
+
+    const openCart = () =>{
+        router.push('/cart/open')
     }
 </script>
 <template>
@@ -86,8 +94,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fa fa-shopping-cart"></i> <span class="badge badge-info">0</span>
+                            <a class="nav-link" style="cursor: pointer;" @click="openCart()">
+                                <i class="fa fa-shopping-cart"></i> <span class="badge badge-info">{{ cart_count }}</span>
                             </a>
                         </li>
                         <li class="nav-item">

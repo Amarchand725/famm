@@ -39,6 +39,7 @@ import SingleBlog from '../pages/home/single_blog.vue'
 import Contact from '../pages/home/contact.vue'
 import About from '../pages/home/about.vue'
 import Testimonial from '../pages/home/testimonial.vue'
+import OpenCart from '../pages/home/cart.vue'
 
 //notfound
 import notFound from '../notFound.vue'
@@ -276,6 +277,11 @@ const routes = [
         path: '/about',
         name: 'About',
         component: About
+    },
+    {
+        path: '/cart/open',
+        name: 'OpenCart',
+        component: OpenCart,
     },
     //notFound
     {

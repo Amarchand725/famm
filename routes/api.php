@@ -12,6 +12,7 @@ use App\Http\Controllers\API\SettingController;
 use App\Http\Controllers\API\AboutUsController;
 use App\Http\Controllers\API\WebController;
 use App\Http\Controllers\API\WishListController;
+use App\Http\Controllers\API\CartController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -45,10 +46,18 @@ Route::controller(WebController::class)->group(function(){
 });
 
 Route::controller(WishListController::class)->group(function(){
-    Route::get('/wishlists', 'index');
     Route::post('/wishlists/create', 'store');
     Route::post('/wishlists/remove/product', 'removeProduct');
     Route::get('/wishlists/count/{token}', 'UserWishListCount');
+});
+Route::controller(CartController::class)->group(function(){
+    Route::post('/cart/add_to_cart', 'store');
+    Route::get('/cart/count/{token}', 'cartCount');
+    Route::get('/cart/open/{token}', 'openCart');
+    Route::get('/cart/destroy/{id}', 'destroy');
+    Route::get('/cart/clear/{token}', 'clearCart');
+    Route::post('/cart/plus', 'cartPlusQuantity');
+    Route::post('/cart/minus', 'cartMinusQuantity');
 });
 
 //admin

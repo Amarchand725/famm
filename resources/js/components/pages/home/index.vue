@@ -7,6 +7,19 @@
 
     const router = useRouter()
 
+    const form = ref({
+        id:'',
+        currency:'',
+        currency_symbol:'',
+        fast_delivery:'',
+        free_shipping:'',
+        best_quality:'',
+        banner:'',
+        banner_title:'',
+        banner_content:'',
+        subscriber_content:'',
+    })
+
     let products =ref([])
     let testimonials =ref([])
 
@@ -15,12 +28,14 @@
     })
 
     let wishlist_count = ref()
+    let cart_count = ref()
 
     onMounted(async() => {
         getProducts()
         getTestimonials()
         getSingleRecord()
         getWishListCount()
+        getCartCount()
     })
 
     const getProducts = async () => {
@@ -57,19 +72,6 @@
             }
         })
     }
-
-    const form = ref({
-        id:'',
-        currency:'',
-        currency_symbol:'',
-        fast_delivery:'',
-        free_shipping:'',
-        best_quality:'',
-        banner:'',
-        banner_title:'',
-        banner_content:'',
-        subscriber_content:'',
-    })
 
     const getSingleRecord = async() =>{
         let response = await axios.get(`/api/admin/about_us/show/1`)
@@ -118,11 +120,30 @@
             })
         })
     }
+    const addToCart = async(slug) =>{
+        let token = localStorage.getItem('token')
+        form.value.token = token
+        form.value.slug = slug
+        await axios.post('/api/cart/add_to_cart', form.value)
+        .then((response) => {
+            getCartCount()
+            toast.fire({
+                icon: 'success',
+                title: 'Added to wishlist Successfully.',
+            })
+        })
+    }
+
+    const getCartCount = async () => {
+        let token = localStorage.getItem('token')
+        let  response = await axios.get(`/api/cart/count/${token}`)
+        cart_count.value = response.data.cart_count
+    }
 </script>
 <template>
     <div class="hero_area">
         <!-- header section strats -->
-        <Header :wishlist_count=wishlist_count />
+        <Header :wishlist_count=wishlist_count :cart_count=cart_count />
         <!-- end header section -->
         <!-- slider section -->
         <Slider />
@@ -409,7 +430,7 @@
                 <div class="box">
                     <div class="option_container">
                         <div class="options">
-                            <a href="" class="option1">
+                            <a @click="addToCart(product.slug)" style="cursor: pointer;" class="option1">
                                 Add To Cart
                             </a>
                             <a style="cursor: pointer;" @click="showDetail(product.slug)" class="option2">

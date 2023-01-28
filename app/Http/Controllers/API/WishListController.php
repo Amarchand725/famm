@@ -10,10 +10,6 @@ use App\Models\Product;
 
 class WishListController extends Controller
 {
-    public function index()
-    {
-        # code...
-    }
     public function store(Request $request)
     {
         $token = PersonalAccessToken::findToken($request->token);

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 27, 2023 at 01:03 AM
+-- Generation Time: Jan 28, 2023 at 01:01 AM
 -- Server version: 5.7.36
 -- PHP Version: 8.0.13
 
@@ -95,6 +95,31 @@ INSERT INTO `blogs` (`id`, `created_by`, `category_id`, `title`, `slug`, `short_
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `carts`
+--
+
+DROP TABLE IF EXISTS `carts`;
+CREATE TABLE IF NOT EXISTS `carts` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) NOT NULL,
+  `product_id` bigint(20) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `carts`
+--
+
+INSERT INTO `carts` (`id`, `user_id`, `product_id`, `quantity`, `created_at`, `updated_at`) VALUES
+(9, 1, 9, 2, '2023-01-27 19:55:44', '2023-01-27 20:00:43'),
+(8, 1, 10, 2, '2023-01-27 19:55:40', '2023-01-27 20:00:33');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `contacted_us`
 --
 
@@ -159,7 +184,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `migrations`
@@ -180,7 +205,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (16, '2023_01_25_204854_create_blogs_table', 7),
 (17, '2023_01_25_222628_create_contacted_us_table', 8),
 (18, '2023_01_26_165615_create_settings_table', 9),
-(19, '2023_01_26_175042_create_about_us_table', 10);
+(19, '2023_01_26_175042_create_about_us_table', 10),
+(20, '2023_01_27_010036_create_wish_lists_table', 11),
+(22, '2023_01_27_222235_create_carts_table', 12);
 
 -- --------------------------------------------------------
 
@@ -217,7 +244,7 @@ CREATE TABLE IF NOT EXISTS `personal_access_tokens` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
   KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `personal_access_tokens`
@@ -252,7 +279,8 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (26, 'App\\Models\\User', 1, 'MyApp', 'b859f69d85235930f478f1b434d6437b6a44015d2e75cbda4be8b518a8c1dc8e', '[\"*\"]', NULL, NULL, '2023-01-19 15:32:34', '2023-01-19 15:32:34'),
 (27, 'App\\Models\\User', 1, 'MyApp', '1b521d3fbc5fb26a21c2b85636ccf53afdb1dac261b2bd7da183d4a65a21e1a1', '[\"*\"]', '2023-01-20 16:10:18', NULL, '2023-01-19 17:19:03', '2023-01-20 16:10:18'),
 (28, 'App\\Models\\User', 1, 'MyApp', 'd1b276d209fe744f3054f1bf099d919e65f8a452e3f0a762d8d07a62d74c645b', '[\"*\"]', NULL, NULL, '2023-01-20 17:17:34', '2023-01-20 17:17:34'),
-(29, 'App\\Models\\User', 1, 'MyApp', 'fcd7e0b3aa30ac44f9dc860f106d3843a3514a7ddbbea0023e5a993000d00d72', '[\"*\"]', NULL, NULL, '2023-01-23 12:09:33', '2023-01-23 12:09:33');
+(29, 'App\\Models\\User', 1, 'MyApp', 'fcd7e0b3aa30ac44f9dc860f106d3843a3514a7ddbbea0023e5a993000d00d72', '[\"*\"]', NULL, NULL, '2023-01-23 12:09:33', '2023-01-23 12:09:33'),
+(30, 'App\\Models\\User', 1, 'MyApp', 'e75702b1dd1caaaddb8034580cf3ca946a3db4aab2c071b10de4853ca6fe3eb9', '[\"*\"]', NULL, NULL, '2023-01-27 15:32:23', '2023-01-27 15:32:23');
 
 -- --------------------------------------------------------
 
@@ -485,6 +513,36 @@ INSERT INTO `users` (`id`, `name`, `email`, `mobile`, `profile`, `email_verified
 (9, 'Liana Herzog PhD', 'herzog.alvis@howell.com', NULL, NULL, '2023-01-25 14:16:37', 'd33a55905aff3092fbadceb5687db60259b54fac', 'rzLcmYBgEP', '2023-01-25 14:16:38', '2023-01-25 14:16:38'),
 (10, 'Estelle Jacobson III', 'skiles.tessie@yahoo.com', NULL, NULL, '2023-01-25 14:16:37', '4578c9430f5fc612bb40dcd3c3de45cefcf7a270', 'eXmnykoR05', '2023-01-25 14:16:38', '2023-01-25 14:16:38'),
 (11, 'Prof. Shane Morar', 'philip.johnson@franecki.com', NULL, NULL, '2023-01-25 14:16:37', '867f54fad558ac35c07efbede123054830d8f86c', '5l6bRmxtDc', '2023-01-25 14:16:38', '2023-01-25 14:16:38');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `wish_lists`
+--
+
+DROP TABLE IF EXISTS `wish_lists`;
+CREATE TABLE IF NOT EXISTS `wish_lists` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) NOT NULL,
+  `product_id` bigint(20) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `wish_lists`
+--
+
+INSERT INTO `wish_lists` (`id`, `user_id`, `product_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 4, '2023-01-27 12:32:29', '2023-01-27 12:32:29'),
+(2, 10, 8, '2023-01-27 12:32:29', '2023-01-27 12:32:29'),
+(3, 7, 2, '2023-01-27 12:32:29', '2023-01-27 12:32:29'),
+(4, 9, 11, '2023-01-27 12:32:29', '2023-01-27 12:32:29'),
+(7, 6, 4, '2023-01-27 12:32:29', '2023-01-27 12:32:29'),
+(8, 4, 10, '2023-01-27 12:32:29', '2023-01-27 12:32:29'),
+(9, 9, 2, '2023-01-27 12:32:29', '2023-01-27 12:32:29'),
+(27, 1, 12, '2023-01-27 16:06:33', '2023-01-27 16:06:33');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

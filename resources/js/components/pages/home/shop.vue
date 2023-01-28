@@ -8,10 +8,12 @@
 
     let products =ref([])
     let wishlist_count = ref()
+    let cart_count = ref()
 
     onMounted(async() => {
         getProducts()
         getWishListCount()
+        getCartCount()
     })
 
     const getProducts = async () => {
@@ -66,9 +68,29 @@
             })
         })
     }
+
+    const addToCart = async(slug) =>{
+        let token = localStorage.getItem('token')
+        form.value.token = token
+        form.value.slug = slug
+        await axios.post('/api/cart/add_to_cart', form.value)
+        .then((response) => {
+            getCartCount()
+            toast.fire({
+                icon: 'success',
+                title: 'Added to wishlist Successfully.',
+            })
+        })
+    }
+
+    const getCartCount = async () => {
+        let token = localStorage.getItem('token')
+        let  response = await axios.get(`/api/cart/count/${token}`)
+        cart_count.value = response.data.cart_count
+    }
 </script>
 <template>
-    <Header :wishlist_count=wishlist_count />
+    <Header :wishlist_count=wishlist_count :cart_count=cart_count />
 
     <!-- inner page section -->
     <section class="inner_page_head">
